@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NORCET Grand Comprehensive Masterclass - 100 Qs</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: #070b14; 
+            color: #f8fafc; 
+            display: flex; 
+            justify-content: center; 
+            line-height: 1.6; 
+            padding: 20px; 
+        }
+        
+        .container { 
+            max-width: 1100px; 
+            width: 100%; 
+        }
+        
+        /* HEADER */
+        .header { 
+            background: #111827; 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.15); 
+            margin-bottom: 25px; 
+            text-align: center; 
+            border-top: 6px solid #8b5cf6; 
+            border-bottom: 1px solid #1f2937; 
+        }
+        .header h1 { margin: 0 0 5px 0; font-size: 2.2em; color: #a78bfa; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
+        .header p { margin: 0; color: #9ca3af; font-size: 1.05em; font-weight: 500; }
+        
+        /* DASHBOARD - NORCET TIMERS */
+        .dashboard { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: #070b14;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-top: 20px; 
+            border: 1px solid #1f2937; 
+            font-weight: 700; 
+            font-size: 1.2em; 
+            color: #e2e8f0; 
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .stat-box { 
+            background: rgba(139, 92, 246, 0.1); 
+            padding: 8px 16px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(139, 92, 246, 0.3); 
+            color: #a78bfa;
+            text-align: center;
+        }
+        .timer-red { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1); }
+        
+        /* QUESTION AREA */
+        .question-container { background: #111827; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: none; margin-bottom: 20px; border: 1px solid #1f2937; }
+        .question-container.active { display: block; animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .subject-tag { display: inline-block; padding: 5px 15px; background: #070b14; color: #ddd6fe; font-size: 0.85em; border-radius: 20px; margin-bottom: 20px; font-weight: 800; border: 1px solid #7c3aed; text-transform: uppercase; letter-spacing: 1px; }
+        .q-text { font-size: 1.3em; font-weight: 700; margin-bottom: 30px; color: #f8fafc; line-height: 1.6; }
+        
+        /* OPTIONS */
+        .options { display: flex; flex-direction: column; gap: 14px; }
+        .option-btn { background: #070b14; border: 2px solid #1f2937; padding: 20px; border-radius: 12px; text-align: left; font-size: 1.1em; cursor: pointer; transition: all 0.2s; color: #cbd5e1; font-weight: 600; line-height: 1.5; }
+        
+        @media (hover: hover) {
+            .option-btn:hover:not(.disabled) { background: #1f2937; border-color: #8b5cf6; transform: translateX(5px); }
+            .nav-btn:hover:not(:disabled) { background: #7c3aed; box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); transform: translateY(-2px); }
+        }
+
+        .option-btn.correct { background: #064e3b; border-color: #10b981; color: #a7f3d0; font-weight: 700; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .option-btn.incorrect { background: #7f1d1d; border-color: #ef4444; color: #fecaca; box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+        .option-btn.disabled { pointer-events: none; }
+        
+        /* RATIONALE */
+        .rationale { margin-top: 30px; padding: 25px; background: rgba(139, 92, 246, 0.05); border-left: 6px solid #8b5cf6; border-radius: 0 12px 12px 0; display: none; font-size: 1.1em; color: #ede9fe; animation: fadeIn 0.5s; line-height: 1.7; border-top: 1px solid rgba(139, 92, 246, 0.2); border-right: 1px solid rgba(139, 92, 246, 0.2); border-bottom: 1px solid rgba(139, 92, 246, 0.2); }
+        .rationale strong { color: #c4b5fd; font-size: 1.15em; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 12px; border-bottom: 1px solid rgba(139, 92, 246, 0.3); padding-bottom: 6px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* NAVIGATION & PROGRESS */
+        .navigation { display: flex; justify-content: space-between; margin-top: 35px; gap: 15px; }
+        .nav-btn { flex: 1; background: #8b5cf6; color: #fff; border: none; padding: 18px; border-radius: 10px; font-size: 1.15em; cursor: pointer; transition: 0.3s; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+        .nav-btn:disabled { background: #1f2937; cursor: not-allowed; color: #4b5563; box-shadow: none; transform: none; }
+        
+        .progress-bar { width: 100%; background: #1f2937; height: 16px; border-radius: 8px; margin-bottom: 30px; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #8b5cf6); width: 0%; transition: width 0.3s linear; }
+        
+        /* RESULTS SCREEN */
+        #results-screen { display: none; background: #111827; padding: 40px 20px; border-radius: 16px; text-align: center; border: 1px solid #1f2937; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .final-score { font-size: 4.5em; color: #a78bfa; font-weight: 900; margin: 20px 0; text-shadow: 0 0 30px rgba(139, 92, 246, 0.3); }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: #070b14; padding: 15px; border-radius: 10px; border: 1px solid #1f2937; font-size: 1.2em; font-weight: bold; }
+        .stat-card span { display: block; font-size: 1.5em; margin-top: 5px; }
+        .s-att { color: #a78bfa; }
+        .s-unatt { color: #9ca3af; }
+        .s-corr { color: #10b981; }
+        .s-wrong { color: #ef4444; }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .header { padding: 25px 15px; margin-bottom: 20px; }
+            .header h1 { font-size: 1.5em; }
+            .header p { font-size: 0.9em; }
+            .dashboard { flex-direction: column; gap: 10px; font-size: 1.05em; padding: 15px; }
+            .stat-box { width: 100%; }
+            .question-container { padding: 25px 15px; margin-bottom: 15px; }
+            .q-text { font-size: 1.15em; margin-bottom: 20px; }
+            .options { gap: 10px; }
+            .option-btn { padding: 15px; font-size: 1em; }
+            .rationale { padding: 15px; font-size: 1em; margin-top: 20px; }
+            .navigation { margin-top: 25px; flex-direction: column-reverse; gap: 10px; }
+            .nav-btn { width: 100%; font-size: 1em; padding: 15px; }
+            .final-score { font-size: 3.5em; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Grand Masterclass (NORCET)</h1>
+        <p>100 Expert Scenarios (MSN, FON, Peds, OBG, Psych, Research) | 5 Sections (18m/sec) | 90 Mins Total</p>
+        
+        <div class="dashboard">
+            <div class="stat-box" id="section-display">Section: 1 / 5</div>
+            <div class="stat-box" id="q-counter">Q: 1 / 20</div>
+            <div class="stat-box timer-red" id="section-timer">Section Time: 18:00</div>
+            <div class="stat-box" id="total-timer">Total Time: 90:00</div>
+            <div class="stat-box">Score: <span id="score">0.00</span></div>
+        </div>
+    </div>
+    
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div id="quiz-body"></div>
+
+    <div id="results-screen">
+        <h2>NORCET Grand Simulation Concluded</h2>
+        <div class="final-score" id="final-score-display">0.00 / 100</div>
+        
+        <div class="stats-grid">
+            <div class="stat-card s-att">Attempted: <span id="stat-att">0</span></div>
+            <div class="stat-card s-unatt">Unattempted: <span id="stat-unatt">0</span></div>
+            <div class="stat-card s-corr">Correct: <span id="stat-corr">0</span></div>
+            <div class="stat-card s-wrong">Wrong: <span id="stat-wrong">0</span></div>
+        </div>
+        
+        <p style="font-size:1.1em; color:#cbd5e1; margin-bottom: 20px;">Exam auto-submitted. Review your clinical rationales to master all nursing specialties.</p>
+        <button class="nav-btn" onclick="location.reload()">Restart Exam</button>
+    </div>
+</div>
+
+<script>
+const rawQuestions = [
+    // --- SECTION 1: MSN & Fundamentals (Q1 - Q20) ---
+    {
+        "q": "A patient with traumatic brain injury exhibits Cushing's Triad. Which triad of findings accurately reflects this condition, and what is its underlying physiological trigger?",
+        "o": ["Hypotension, tachycardia, and tachypnea caused by medullary hypoperfusion.", "Hypertension with widening pulse pressure, bradycardia, and irregular respirations caused by increased intracranial pressure compressing the brainstem.", "Hypotension, bradycardia, and bradypnea caused by vagal nerve stimulation.", "Hypertension with narrowing pulse pressure, tachycardia, and Kussmaul breathing caused by metabolic acidosis."],
+        "a": 1,
+        "t": "MSN - Neuro / Critical Care",
+        "e": "Cushing's Triad is a classic late sign of severe intracranial pressure (ICP). The brain attempts to maintain cerebral perfusion by driving up systolic blood pressure (widening pulse pressure), which triggers baroreceptors to drop the heart rate (bradycardia), while brainstem compression leads to irregular respirations."
+    },
+    {
+        "q": "An RN receives a four-patient assignment on a medical-surgical unit. Which patient requires immediate, first-priority assessment?",
+        "o": ["A postoperative patient with a Jackson-Pratt drain producing 40 mL of serosanguineous fluid in the last hour.", "A patient with type 1 diabetes whose blood glucose is 240 mg/dL and is asking for lunch.", "A patient with a long bone fracture who suddenly develops tachypnea, tachycardia, and a petechial rash across the chest.", "A patient with COPD whose oxygen saturation is 91% on 2L nasal cannula."],
+        "a": 2,
+        "t": "Fundamentals - Prioritization",
+        "e": "Fat Embolism Syndrome (FES) is a life-threatening complication of long bone fractures characterized by respiratory distress (tachypnea, hypoxia), tachycardia, and a hallmark petechial rash. This is an immediate ABC emergency. The other patients are stable or expected."
+    },
+    {
+        "q": "A patient with severe acute pancreatitis has a serum calcium level of 6.8 mg/dL. The nurse inflates a blood pressure cuff above systolic pressure for 3 minutes and observes carpal spasm. What is this sign called, and what is the immediate pharmacological intervention?",
+        "o": ["Chvostek's sign; administer oral Calcium Carbonate", "Trousseau's sign; administer IV Calcium Gluconate", "Kernig's sign; administer Magnesium Sulfate", "Brudzinski's sign; administer Potassium Chloride"],
+        "a": 1,
+        "t": "MSN - Endocrine / Electrolytes",
+        "e": "Carpal spasm induced by inflating a BP cuff above systolic pressure is Trousseau's sign, indicating severe hypocalcemia. Acute symptomatic hypocalcemia is a medical emergency treated with IV Calcium Gluconate to prevent tetany and laryngospasm."
+    },
+    {
+        "q": "A patient with a spinal cord injury at T4 reports a severe, throbbing headache and nasal congestion. The blood pressure is 220/110 mmHg, and heart rate is 50 bpm. What is the nurse's absolute FIRST priority action?",
+        "o": ["Administer sublingual Nifedipine to lower the blood pressure.", "Check for bladder distention or a kinked Foley catheter.", "Place the patient in a flat supine position.", "Perform a digital rectal examination for impaction."],
+        "a": 1,
+        "t": "MSN - Spinal Cord / Emergency",
+        "e": "The patient is experiencing Autonomic Dysreflexia. The priority is to identify and remove the triggering noxious stimulus—most commonly a distended bladder or blocked catheter. Check and correct the urinary catheter before administering antihypertensives."
+    },
+    {
+        "q": "A patient with DKA is receiving an insulin infusion. Initial labs show K+ of 3.1 mEq/L, blood glucose of 450 mg/dL, and pH of 7.15. What is the nurse's priority action before starting the insulin?",
+        "o": ["Administer a 50% Dextrose bolus.", "Administer Sodium Bicarbonate IV.", "Hold insulin and obtain an order for IV Potassium replacement first.", "Increase the rate of the normal saline infusion."],
+        "a": 2,
+        "t": "MSN - Endocrine Emergencies",
+        "e": "Insulin drives potassium from the extracellular fluid into the intracellular space. Since the patient is already hypokalemic (K+ 3.1), starting insulin will precipitate lethal cardiac arrhythmias. Potassium must be repleted first."
+    },
+    {
+        "q": "A patient with cirrhosis has a Sengstaken-Blakemore tube placed for massive esophageal variceal bleeding. The patient suddenly develops acute respiratory distress and severe airway obstruction. What is the nurse's immediate action?",
+        "o": ["Deflate the esophageal balloon.", "Cut the entire tube with scissors immediately to deflate all lumens.", "Advance the tube 5 cm further into the stomach.", "Administer IV Naloxone."],
+        "a": 1,
+        "t": "MSN - GI Emergencies",
+        "e": "If a Sengstaken-Blakemore tube slips upward, the esophageal balloon can occlude the airway, causing suffocation. The nurse must immediately cut the tube with scissors (kept at the bedside) to release all pressure and remove it."
+    },
+    {
+        "q": "A patient with a traumatic brain injury has an ICP of 24 mmHg and a blood pressure of 110/50 mmHg. Calculate the Cerebral Perfusion Pressure (CPP) and determine its clinical significance.",
+        "o": ["CPP is 46 mmHg; brain tissue perfusion is inadequate and ischemic.", "CPP is 70 mmHg; cerebral perfusion is optimal.", "CPP is 30 mmHg; brain death has occurred.", "CPP is 85 mmHg; intracranial hypertension is resolved."],
+        "a": 0,
+        "t": "MSN - Neuro Hemodynamics",
+        "e": "MAP = (110 + 2(50)) / 3 = 210 / 3 = 70 mmHg. CPP = MAP - ICP = 70 - 24 = 46 mmHg. Normal CPP is 60–100 mmHg. A CPP below 60 mmHg indicates brain ischemia and requires urgent intervention."
+    },
+    {
+        "q": "A patient undergoing chemotherapy develops Tumor Lysis Syndrome (TLS). Which specific electrolyte and metabolic pattern characterizes this emergency?",
+        "o": ["Hypokalemia, Hypomagnesemia, Hypercalcemia, Hyponatremia", "Hyperkalemia, Hyperphosphatemia, Hypocalcemia, Hyperuricemia", "Hypokalemia, Hyperphosphatemia, Hypercalcemia, Hypouricemia", "Hyperkalemia, Hypomagnesemia, Hypercalcemia, Hypouricemia"],
+        "a": 1,
+        "t": "MSN - Oncology",
+        "e": "TLS results from rapid tumor cell lysis, dumping intracellular contents into the blood: high potassium (hyperkalemia), high phosphorus (hyperphosphatemia), and high nucleic acids turning into uric acid (hyperuricemia). High phosphorus binds calcium, causing secondary hypocalcemia."
+    },
+    {
+        "q": "A patient in septic shock is receiving Norepinephrine via a peripheral IV line. The nurse notes the site is pale, cool, and swollen. After stopping the infusion, what is the specific antidote that must be infiltrated into the tissue?",
+        "o": ["Protamine Sulfate", "Phentolamine (Regitine)", "Sodium Bicarbonate", "Flumazenil"],
+        "a": 1,
+        "t": "MSN - Pharmacology / Shock",
+        "e": "Norepinephrine extravasation causes severe alpha-1 vasoconstriction and tissue necrosis. Phentolamine is an alpha-adrenergic blocker that, when infiltrated subcutaneously into the affected area, causes localized vasodilation to save the tissue."
+    },
+    {
+        "q": "A patient with Myasthenia Gravis is brought to the ED in severe respiratory distress. The provider administers Edrophonium (Tensilon). The patient's muscle weakness significantly worsens and they exhibit excessive salivation and bradycardia. What crisis is this, and what is the antidote?",
+        "o": ["Myasthenic crisis; administer Neostigmine", "Cholinergic crisis; administer Atropine Sulfate", "Cholinergic crisis; administer Edrophonium", "Myasthenic crisis; administer Pyridostigmine"],
+        "a": 1,
+        "t": "MSN - Neurology / Pharmacology",
+        "e": "A worsening of weakness following Edrophonium indicates a Cholinergic Crisis (acetylcholine excess/overmedication), accompanied by muscarinic symptoms like salivation and bradycardia. The antidote is Atropine Sulfate."
+    },
+    {
+        "q": "A patient suffers an electrical burn with deep muscle destruction. The nurse notes dark, tea-colored urine. What is the priority nursing intervention?",
+        "o": ["Restrict fluid intake to prevent pulmonary edema.", "Administer potassium-sparing diuretics.", "Aggressively hydrate the patient to maintain a high urine output (75–100 mL/hr) to flush myoglobin.", "Apply cold compresses to the burned muscle beds."],
+        "a": 2,
+        "t": "MSN - Burns",
+        "e": "Electrical burns cause severe myoglobin release from damaged muscles. Myoglobin precipitates in renal tubules, causing Acute Tubular Necrosis (ATN). Aggressive IV fluid resuscitation targeting a urine output of 75–100 mL/hr is vital to clear the myoglobin."
+    },
+    {
+        "q": "A patient presents with Beck's triad: hypotension, muffled heart sounds, and jugular venous distention (JVD), along with a CVP of 19 mmHg. What is the immediate, definitive procedural intervention?",
+        "o": ["Emergency Pericardiocentesis", "Insertion of a Transvenous Pacemaker", "Emergency Thoracotomy", "Administration of high-dose Vasopressors"],
+        "a": 0,
+        "t": "MSN - Critical Care / Cardiac",
+        "e": "Beck's triad combined with an elevated CVP is the classic presentation of Cardiac Tamponade. Fluid accumulates in the pericardial sac, preventing ventricular filling. Needle aspiration (pericardiocentesis) is life-saving."
+    },
+    {
+        "q": "Which patient condition represents an ABSOLUTE contraindication for intravenous thrombolytic therapy (tPA) in acute ischemic stroke?",
+        "o": ["Blood pressure of 165/95 mmHg", "History of mild ischemic stroke 3 years ago", "Major abdominal surgery 7 days ago", "Blood glucose of 180 mg/dL"],
+        "a": 2,
+        "t": "MSN - Neurology / Pharmacology",
+        "e": "Recent major surgery or trauma within the past 14 days is an absolute contraindication for tPA due to the high risk of catastrophic, unmanageable surgical site hemorrhage."
+    },
+    {
+        "q": "A patient with a temporary transvenous pacemaker shows pacing spikes that are NOT followed by QRS complexes (failure to capture). What is the immediate nurse-managed device adjustment?",
+        "o": ["Increase the sensitivity threshold (mV)", "Decrease the milliamperage (mA) output", "Increase the milliamperage (mA) output until capture is achieved", "Turn off the pacemaker generator"],
+        "a": 2,
+        "t": "MSN - Critical Care / Devices",
+        "e": "Failure to capture means the electrical spike is not strong enough to depolarize the heart. Increasing the current output (mA) increases the electrical energy delivered until capture is regained."
+    },
+    {
+        "q": "A patient with end-stage renal disease takes Sevelamer hydrochloride. What is the precise therapeutic intent of this medication?",
+        "o": ["Lower serum potassium by exchanging sodium in the bowel", "Bind dietary phosphate in the gut to prevent hyperphosphatemia", "Stimulate bone marrow erythropoiesis", "Reduce systemic blood pressure by blocking calcium channels"],
+        "a": 1,
+        "t": "MSN - Renal Pharmacology",
+        "e": "Sevelamer is a non-calcium, non-aluminum phosphate binder. Patients with ESRD retain phosphate; Sevelamer binds dietary phosphate in the GI tract and is excreted in feces. It must be taken with meals."
+    },
+    {
+        "q": "A patient presents with acute thoracic aortic dissection. Blood pressure is 210/110 mmHg and heart rate is 115 bpm. What is the absolute FIRST pharmacological priority?",
+        "o": ["Administer IV Nitroprusside to drop blood pressure instantly", "Administer IV Esmolol or Labetalol to reduce heart rate and dP/dt (force of contraction)", "Administer sublingual Nitroglycerin", "Administer IV Heparin bolus"],
+        "a": 1,
+        "t": "MSN - Vascular Emergencies",
+        "e": "In aortic dissection, shear stress (dP/dt) drives the propagation of the tear. Lowering heart rate and myocardial contractility with a beta-blocker MUST precede any vasodilator therapy to prevent reflex tachycardia and immediate aortic rupture."
+    },
+    {
+        "q": "A patient in Thyroid Storm is prescribed Propylthiouracil (PTU), Lugol's iodine, and Propranolol. Why must Lugol's iodine be administered at least 1 hour AFTER the PTU dose?",
+        "o": ["To prevent iodine from neutralizing the beta-blocker", "To prevent the thyroid gland from utilizing the iodine to synthesize and release even more thyroid hormone", "To enhance the gastrointestinal absorption of PTU", "Iodine must be given 1 hour before PTU, not after"],
+        "a": 1,
+        "t": "MSN - Endocrine Emergencies",
+        "e": "Iodine inhibits the release of thyroid hormone, but if given before PTU (which blocks hormone synthesis), the gland can utilize the excess iodine to manufacture more hormone, severely exacerbating the storm."
+    },
+    {
+        "q": "A patient with Diabetes Insipidus (DI) is given Desmopressin (DDAVP). Which laboratory and clinical findings indicate successful therapeutic response?",
+        "o": ["Decreased urine output, increased urine specific gravity, and normalized serum sodium", "Increased urine output, decreased urine specific gravity, and hypernatremia", "Weight loss, hypotension, and high serum osmolality", "Glycosuria and ketonuria"],
+        "a": 0,
+        "t": "MSN - Endocrine",
+        "e": "DI results from ADH deficiency, causing massive dilute polyuria and hypernatremia. Desmopressin acts as synthetic ADH, causing renal water reabsorption, concentrating the urine (increasing specific gravity), reducing urine output, and normalizing serum sodium/osmolality."
+    },
+    {
+        "q": "A patient with a tibial fracture develops severe, unremitting pain not relieved by narcotics, alongside diminished distal pulses and pallor. The nurse recognizes Compartment Syndrome. Which position for the limb is strictly contraindicated?",
+        "o": ["Elevating the extremity above the level of the heart", "Keeping the extremity flat at heart level", "Removing all constrictive casts or dressings", "Applying cold packs"],
+        "a": 0,
+        "t": "MSN - Orthopedics",
+        "e": "Elevating an extremity with compartment syndrome further compromises arterial inflow, worsening tissue ischemia. The limb must be kept strictly at heart level."
+    },
+    {
+        "q": "Which hemodynamic parameter is the hallmark defining feature of early distributive (septic) shock?",
+        "o": ["High SVR, Low Cardiac Output", "Low SVR, High Cardiac Output", "High SVR, High Cardiac Output", "Low SVR, Low Cardiac Output"],
+        "a": 1,
+        "t": "MSN - Critical Care / Shock",
+        "e": "Early septic shock features profound systemic vasodilation, resulting in a markedly decreased Systemic Vascular Resistance (SVR). To compensate for this vasodilation and maintain perfusion, the heart increases its output, resulting in a high Cardiac Output."
+    }
+];
+// Structure into 5 sections of 20 questions each
+let sections = [];
+for (let i = 0; i < 5; i++) {
+    sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
+}
+
+let currentSection = 0;
+let currentQ = 0;
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answeredCount = 0;
+let answersData = Array.from({length: 5}, () => new Array(20).fill(null));
+
+// Timers (in seconds)
+let sectionTimeLeft = 18 * 60; 
+let totalTimeLeft = 90 * 60; 
+let timerInterval;
+
+const quizBody = document.getElementById('quiz-body');
+const scoreEl = document.getElementById('score');
+const qCounterEl = document.getElementById('q-counter');
+const secDisplayEl = document.getElementById('section-display');
+const secTimerEl = document.getElementById('section-timer');
+const totTimerEl = document.getElementById('total-timer');
+const progressEl = document.getElementById('progress');
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+}
+
+function updateTimers() {
+    if (totalTimeLeft <= 0) {
+        clearInterval(timerInterval);
+        finishExam();
+        return;
+    }
+    
+    sectionTimeLeft--;
+    totalTimeLeft--;
+    
+    secTimerEl.innerText = "Section Time: " + formatTime(sectionTimeLeft);
+    totTimerEl.innerText = "Total Time: " + formatTime(totalTimeLeft);
+    
+    if (sectionTimeLeft <= 0) {
+        advanceSection();
+    }
+}
+
+function advanceSection() {
+    if (currentSection < 4) {
+        alert("Time's up for Section " + (currentSection + 1) + ". Auto-advancing to Section " + (currentSection + 2) + ".");
+        currentSection++;
+        currentQ = 0;
+        sectionTimeLeft = 18 * 60; 
+        renderQuestion();
+    } else {
+        clearInterval(timerInterval);
+        finishExam();
+    }
+}
+
+function renderQuestion() {
+    quizBody.innerHTML = '';
+    const q = sections[currentSection][currentQ];
+    const globalQNum = (currentSection * 20) + currentQ + 1;
+    
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-container active';
+    
+    const isAnswered = answersData[currentSection][currentQ] !== null;
+    const selectedIdx = answersData[currentSection][currentQ];
+    
+    let optionsHtml = '';
+    q.o.forEach((opt, optIndex) => {
+        let btnClass = 'option-btn';
+        if (isAnswered) {
+            btnClass += ' disabled';
+            if (optIndex === q.a) btnClass += ' correct';
+            else if (optIndex === selectedIdx) btnClass += ' incorrect';
+        }
+        optionsHtml += '<button class="' + btnClass + '" onclick="checkAnswer(' + optIndex + ', this)">' + String.fromCharCode(65 + optIndex) + '. ' + opt + '</button>';
+    });
+
+    let navHtml = '';
+    if (currentQ > 0) {
+        navHtml += '<button class="nav-btn" onclick="navigate(-1)">Previous</button>';
+    } else {
+        navHtml += '<button class="nav-btn" disabled>Previous</button>';
+    }
+    
+    if (currentQ < 19) {
+        navHtml += '<button class="nav-btn" onclick="navigate(1)">Next</button>';
+    } else {
+        if (currentSection < 4) {
+            navHtml += '<button class="nav-btn" onclick="submitSection()">Submit Section ' + (currentSection + 1) + '</button>';
+        } else {
+            navHtml += '<button class="nav-btn" onclick="finishExam()">Final Submit</button>';
+        }
+    }
+
+    qDiv.innerHTML = '<div class="subject-tag">' + q.t + '</div>' +
+                     '<div class="q-text">Q' + globalQNum + ': ' + q.q + '</div>' +
+                     '<div class="options" id="opts-container">' + optionsHtml + '</div>' +
+                     '<div class="rationale" id="rationale-box" style="display: ' + (isAnswered ? 'block' : 'none') + ';">' +
+                     '<strong>Clinical Rationale:</strong> ' + q.e + '</div>' +
+                     '<div class="navigation">' + navHtml + '</div>';
+    quizBody.appendChild(qDiv);
+    
+    secDisplayEl.innerText = "Section: " + (currentSection + 1) + " / 5";
+    qCounterEl.innerText = "Q: " + (currentQ + 1) + " / 20";
+    
+    const globalProgress = (globalQNum / 100) * 100;
+    progressEl.style.width = globalProgress + '%';
+}
+
+window.checkAnswer = function(selectedOptIndex, btnElement) {
+    if (answersData[currentSection][currentQ] !== null) return; 
+    
+    const q = sections[currentSection][currentQ];
+    answersData[currentSection][currentQ] = selectedOptIndex;
+    
+    const container = document.getElementById('opts-container');
+    const buttons = container.querySelectorAll('.option-btn');
+    
+    buttons.forEach(b => b.classList.add('disabled'));
+    
+    answeredCount++;
+
+    if (selectedOptIndex === q.a) {
+        btnElement.classList.add('correct');
+        score += 1;
+        correctCount++;
+    } else {
+        btnElement.classList.add('incorrect');
+        buttons[q.a].classList.add('correct');
+        score -= 0.3333; 
+        wrongCount++;
+    }
+    
+    document.getElementById('rationale-box').style.display = 'block';
+    scoreEl.innerText = score.toFixed(2);
+}
+
+window.navigate = function(dir) {
+    currentQ += dir;
+    renderQuestion();
+}
+
+window.submitSection = function() {
+    let unans = 0;
+    for(let i=0; i<20; i++) {
+        if(answersData[currentSection][i] === null) unans++;
+    }
+    if(unans > 0) {
+        if(!confirm("You have " + unans + " unattempted questions in this section. Submit and move to next section? You CANNOT return.")) return;
+    } else {
+        if(!confirm("Are you sure you want to submit Section " + (currentSection + 1) + "? You CANNOT return.")) return;
+    }
+    
+    currentSection++;
+    currentQ = 0;
+    sectionTimeLeft = 18 * 60; 
+    renderQuestion();
+}
+
+window.finishExam = function() {
+    clearInterval(timerInterval);
+    quizBody.style.display = 'none';
+    document.querySelector('.dashboard').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'block';
+    
+    let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
+    document.getElementById('final-score-display').innerText = finalScoreFormatted + " / 100";
+    
+    let unattemptedCount = 100 - answeredCount;
+    
+    document.getElementById('stat-att').innerText = answeredCount;
+    document.getElementById('stat-unatt').innerText = unattemptedCount;
+    document.getElementById('stat-corr').innerText = correctCount;
+    document.getElementById('stat-wrong').innerText = wrongCount;
+}
+
+window.onload = function() {
+    renderQuestion();
+    timerInterval = setInterval(updateTimers, 1000);
+};
+</script>
+
+</body>
+</html>
+,
+{
+    "q": "An infant with Tetralogy of Fallot suddenly develops a hypercyanotic spell ('Tet spell') while crying. What is the immediate priority nursing intervention?",
+    "o": ["Administer high-flow oxygen via non-rebreather mask and place the infant in a knee-chest position.", "Perform immediate chest compressions and defibrillation.", "Administer IV atropine to treat severe bradycardia.", "Position the infant flat in a supine position and apply a warm blanket."],
+    "a": 0,
+    "t": "Pediatrics - Cardiology",
+    "e": "During a 'Tet spell', pulmonary blood flow drops sharply due to infundibular spasm. Placing the infant in the knee-chest position kinks the femoral arteries, increasing Systemic Vascular Resistance (SVR), which forces blood through the stenotic pulmonary valve instead of the VSD. Oxygen and calm soothing (morphine if ordered) are also standard."
+},
+{
+    "q": "A 3-week-old infant is brought to the clinic with non-bilious projectile vomiting immediately after feeding, persistent hunger, and an olive-shaped mass palpable in the epigastric region. Which acid-base imbalance is this infant at highest risk for developing?",
+    "o": ["Respiratory Acidosis", "Metabolic Acidosis", "Metabolic Alkalosis", "Respiratory Alkalosis"],
+    "a": 2,
+    "t": "Pediatrics - Gastrointestinal",
+    "e": "The infant has Pyloric Stenosis. Forceful vomiting of gastric contents leads to the continuous loss of hydrochloric acid (HCl) and potassium, resulting in severe hypochloremic metabolic alkalosis."
+},
+{
+    "q": "An 8-month-old infant presents with sudden, intermittent episodes of severe colicky abdominal pain, drawing the legs up to the abdomen, and passing stool mixed with blood and mucus ('currant jelly' stools). What is the definitive diagnostic and therapeutic non-surgical procedure?",
+    "o": ["Diagnostic exploratory laparoscopy", "Air enema or hydrostatic (saline) enema under fluoroscopy", "Immediate barium swallow study", "Colonoscopy with biopsy"],
+    "a": 1,
+    "t": "Pediatrics - Gastrointestinal",
+    "e": "These are classic signs of Intussusception (telescoping of the bowel). An air or hydrostatic (saline) enema performed under fluoroscopy or ultrasound guidance is both diagnostic and therapeutic, successfully reducing the intussusception in the majority of cases without surgery."
+},
+{
+    "q": "A newborn infant fails to pass meconium within 48 hours of birth, exhibits abdominal distension, and vomits bilious fluid. Rectal examination reveals an explosive expulsion of gas and stool (squirt sign). What congenital condition is suspected?",
+    "o": ["Necrotizing Enterocolitis (NEC)", "Hirschsprung's Disease (Congenital Aganglionic Megacolon)", "Pyloric Stenosis", "Esophageal Atresia"],
+    "a": 1,
+    "t": "Pediatrics - Gastrointestinal",
+    "e": "Hirschsprung's Disease is caused by the absence of ganglion cells in the distal colon (aganglionosis), resulting in a lack of peristalsis, failure to pass meconium, ribbon-like or explosive stools, and megacolon."
+},
+{
+    "q": "A toddler is brought to the ED with a high fever, severe sore throat, drooling, leaning forward in a tripod position, and muffled 'hot potato' voice. The nurse suspects Epiglottitis. What is the most critical nursing precaution?",
+    "o": ["Examine the throat immediately using a tongue depressor to inspect the epiglottis.", "Keep the child calm, avoid invasive procedures or throat inspection, and ensure emergency intubation equipment is at the bedside.", "Administer oral cough syrups immediately.", "Place the child in a flat supine position."],
+    "a": 1,
+    "t": "Pediatrics - Respiratory Emergencies",
+    "e": "Epiglottitis is a medical emergency caused by Haemophilus influenzae type b (Hib). Any stimulation of the throat (such as examining with a tongue depressor) can trigger total, catastrophic laryngospasm and complete airway obstruction. Never inspect the throat; keep the child calm and ready for emergency airway management."
+},
+{
+    "q": "A 2-year-old child with severe dehydration is receiving an IV fluid bolus. Which clinical finding best indicates that the fluid resuscitation has been successful and tissue perfusion is restored?",
+    "o": ["Heart rate drops from 160 to 110 bpm, and urine output reaches 1–2 mL/kg/hr", "Anterior fontanelle remains visibly sunken", "Blood pressure drops below the 50th percentile for age", "Capillary refill time remains prolonged at 4 seconds"],
+    "a": 0,
+    "t": "Pediatrics - Fluid & Electrolytes",
+    "e": "Successful fluid resuscitation in pediatric shock is verified by resolution of tachycardia (heart rate returning to normal limits for age), improved peripheral pulses, warm extremities, capillary refill under 2 seconds, and a urine output of at least 1–2 mL/kg/hr."
+},
+{
+    "q": "A newborn is noted to have coarse facial features, a large protruding tongue, a umbilical hernia, prolonged neonatal jaundice, and profound lethargy. Which congenital disorder does this clinical presentation suggest?",
+    "o": ["Congenital Hypothyroidism", "Down Syndrome", "Phenylketonuria (PKU)", "Galactosemia"],
+    "a": 0,
+    "t": "Pediatrics - Endocrine",
+    "e": "Congenital hypothyroidism results from inadequate thyroid hormone production in infancy. Classic signs include lethargy, hypotonia, a large thick tongue, umbilical hernia, dry skin, and prolonged jaundice. Early screening (heel-stick Guthrie test) and prompt treatment with Levothyroxine prevent irreversible mental retardation."
+},
+{
+    "q": "A pediatric patient with Nephrotic Syndrome is admitted with severe generalized edema (anasarca). Which set of classic laboratory findings confirms this diagnosis?",
+    "o": ["Proteinuria (>3.5g/day), Hypoalbuminemia, and Hyperlipidemia", "Hematuria, Hypertension, and Elevated BUN/Creatinine", "Proteinuria, Hyperalbuminemia, and Hypolipidemia", "Glycosuria, Ketonuria, and Metabolic Acidosis"],
+    "a": 0,
+    "t": "Pediatrics - Renal",
+    "e": "Nephrotic syndrome is characterized by massive glomerular permeability to protein. The clinical triad includes heavy proteinuria, hypoalbuminemia (due to protein loss in urine), and resulting hyperlipidemia (liver's compensatory response), leading to severe generalized edema."
+},
+{
+    "q": "A child is diagnosed with Acute Glomerulonephritis (AGN) following a recent streptococcal throat infection. What is the classic presentation of urine output and appearance?",
+    "o": ["Polyuria with clear, colorless urine", "Oliguria with smoky, brownish, 'cola-colored' or tea-colored urine (hematuria)", "Frank bright red bleeding with severe dysuria", "Foamy, frothy urine containing massive lipids"],
+    "a": 1,
+    "t": "Pediatrics - Renal",
+    "e": "AGN is an immune-complex disease following a GABHS infection. Glomerular inflammation causes oliguria and hematuria, where red blood cells passing through the damaged glomeruli turn the urine a characteristic smoky, tea or cola-color."
+},
+{
+    "q": "A 3-year-old child has a firm, smooth, unilateral abdominal mass that does not cross the midline, discovered during a routine bath. The nurse notes a prominent warning sign above the bed: 'DO NOT PALPATE ABDOMEN'. Why is this restriction critical?",
+    "o": ["Palpation can cause severe pain and trigger vomiting", "Palpation can rupture the tumor capsule, releasing malignant cells and spreading Wilms Tumor (Nephroblastoma)", "Palpation will cause immediate renal failure", "Palpation can rupture the spleen"],
+    "a": 1,
+    "t": "Pediatrics - Oncology",
+    "e": "A firm abdominal mass in a young child that does not cross the midline is characteristic of Wilms Tumor (Nephroblastoma). The tumor capsule is fragile; deep or repetitive palpation can rupture it, seeding tumor cells into the peritoneal cavity and drastically worsening prognosis."
+},
+{
+    "q": "An infant presents with leukocoria (an abnormal white pupillary reflex or 'cat's eye reflex') in place of the normal red reflex. What malignancy is suspected?",
+    "o": ["Neuroblastoma", "Medulloblastoma", "Retinoblastoma", "Ewing Sarcoma"],
+    "a": 2,
+    "t": "Pediatrics - Oncology",
+    "e": "Leukocoria—a whitish glow in the pupil—is the most common presenting sign of Retinoblastoma, an intraocular malignant tumor of childhood arising from the retina."
+},
+{
+    "q": "A newborn infant undergoes surgical repair of a cleft lip. Which post-operative nursing intervention is essential to protect the surgical suture line?",
+    "o": ["Position the infant prone immediately after feeding", "Apply elbow restraints (freedom splints) to prevent the infant from touching or scratching the lip", "Use suction catheters routinely every hour to clear oral secretions", "Feed the infant using a hard plastic spoon"],
+    "a": 1,
+    "t": "Pediatrics - Surgical / Post-op",
+    "e": "Elbow restraints are applied post-operatively to prevent infants from bending their arms and bringing their hands to their face to rub or pull on the delicate suture line of a repaired cleft lip. They are removed periodically for range-of-motion exercises under direct supervision."
+},
+{
+    "q": "During a routine newborn assessment, the nurse performs the Ortolani and Barlow maneuvers. A positive click or clunk is felt, indicating femoral head dislocation from the acetabulum. What condition does this signify?",
+    "o": ["Congenital Clubfoot (Talipes Equinovarus)", "Developmental Dysplasia of the Hip (DDH)", "Legg-Calve-Perthes Disease", "Slipped Capital Femoral Epiphysis"],
+    "a": 1,
+    "t": "Pediatrics - Orthopedics",
+    "e": "The Ortolani and Barlow maneuvers detect Developmental Dysplasia of the Hip (DDH). A positive 'clunk' indicates that the dislocated femoral head is slipping back into place (Ortolani) or being dislocated out of the socket (Barlow)."
+},
+{
+    "q": "A child is brought in with a 6-day history of high fever unresponsive to antibiotics, bilateral non-purulent conjunctivitis, strawberry tongue, erythematous cracked lips, and peeling skin on the fingers. What diagnosis does this constellation support?",
+    "o": ["Scarlet Fever", "Rheumatic Fever", "Kawasaki Disease", "Measles"],
+    "a": 2,
+    "t": "Pediatrics - Immunology / Vascular",
+    "e": "Kawasaki Disease is an acute systemic vasculitis of childhood. Diagnostic criteria include high fever for \u22655 days plus four of the primary features: conjunctivitis, oral changes (strawberry tongue, cracked lips), rash, extremity changes (erythema/peeling), and cervical lymphadenopathy. Treatment includes IVIG and high-dose Aspirin to prevent coronary artery aneurysms."
+},
+{
+    "q": "A child presents with a maculopapular rash that starts on the face and spreads downward, accompanied by tiny white spots with bluish-white centers on the buccal mucosa (Koplik spots). What disease is this?",
+    "o": ["Varicella (Chickenpox)", "Rubeola (Measles)", "Rubella (German Measles)", "Erythema Infectiosum (Fifth Disease)"],
+    "a": 1,
+    "t": "Pediatrics - Infectious Disease",
+    "e": "Koplik spots on the buccal mucosa are pathognomonic for Rubeola (Measles), appearing just before the characteristic cephalocaudal maculopapular rash."
+},
+{
+    "q": "At 1 minute after birth, a newborn has a heart rate of 130 bpm, cries vigorously and pulls away to stimulation, has a pink body with blue extremities (acrocyanosis), and moves all extremities actively with good flexion. What is the correct APGAR score?",
+    "o": ["7", "8", "9", "10"],
+    "a": 2,
+    "t": "Pediatrics - Neonatal Assessment",
+    "e": "APGAR breakdown: Heart rate >100 bpm = 2. Cry/pull away (reflex irritability) = 2. Body pink, extremities blue (acrocyanosis) = 1. Active movement/flexion = 2. Respiration (vigorous cry) = 2. Total score = 2 + 2 + 1 + 2 + 2 = 9."
+},
+{
+    "q": "A newborn undergoing phototherapy for hyperbilirubinemia requires specific nursing care to prevent complications. Which action is mandatory?",
+    "o": ["Apply petroleum jelly generously over the infant's skin", "Cover the infant's eyes with opaque patches to prevent retinal damage, and monitor hydration status closely", "Keep the infant completely swaddled in heavy blankets to maintain core temperature", "Stop all formula feedings and provide only intravenous D5W"],
+    "a": 1,
+    "t": "Pediatrics - Neonatal Care",
+    "e": "Phototherapy converts bilirubin into water-soluble isomers for excretion. High-intensity light can cause retinal damage; opaque eye patches are mandatory. Increased insensible water loss also requires monitoring for dehydration."
+},
+{
+    "q": "A 6-month-old infant is brought to the clinic for a well-child check. Which developmental milestone should the nurse expect the infant to have achieved?",
+    "o": ["Walking independently", "Sitting unsupported and transferring objects from hand to hand", "Saying 3 to 5 words with clear meaning", "Building a tower of two blocks"],
+    "a": 1,
+    "t": "Pediatrics - Growth & Development",
+    "e": "By 6 months of age, a normal infant typically sits unsupported (tripod sitting initially, then steady), rolls in both directions, and demonstrates palmar grasp/transferring objects from hand to hand. Pincer grasp develops around 9 months, and walking occurs around 12–15 months."
+},
+{
+    "q": "A child is diagnosed with Celiac Disease. Which dietary restriction must the nurse emphasize to the parents?",
+    "o": ["Strict elimination of gluten (Wheat, Barley, Rye, Oats)", "Elimination of all dairy products and lactose", "Avoidance of simple sugars and high-fructose corn syrup", "Restriction of purine-rich proteins"],
+    "a": 0,
+    "t": "Pediatrics - Gastrointestinal / Nutrition",
+    "e": "Celiac disease is an immune-mediated enteropathy triggered by ingesting gluten, a protein found in wheat, barley, rye, and triticale (and cross-contaminated oats). Dietary management requires lifelong strict gluten-free adherence."
+},
+{
+    "q": "A school-aged child with Type 1 Diabetes mellitus is brought to the ED lethargic and breathing deeply and rapidly. Blood glucose is 580 mg/dL, and urine tests positive for ketones. What type of breathing is the nurse observing?",
+    "o": ["Cheyne-Stokes respirations", "Kussmaul respirations", "Biot's respirations", "Apustic respirations"],
+    "a": 1,
+    "t": "Pediatrics - Endocrine Emergencies",
+    "e": "Kussmaul respirations are deep, rapid, labored breaths representing the respiratory system's metabolic compensation (blow off CO2) for severe metabolic acidosis caused by ketoacidosis in DKA."
+},
+
+    // --- SECTION 3: OBG & Gynaecology (Q21 - Q60) ---
+    {
+        "q": "A pregnant woman at 32 weeks gestation presents with sudden, painless vaginal bleeding of bright red blood. The uterus is soft, non-tender, and fetal heart tones are reassuring. What condition does this clinical picture indicate?",
+        "o": ["Abruptio Placentae", "Placenta Previa", "Uterine Rupture", "Vasa Previa"],
+        "a": 1,
+        "t": "OBG - Antepartum Complications",
+        "e": "Placenta Previa involves abnormal implantation of the placenta over or near the cervical os. The classic hallmark is sudden, painless, bright red bleeding in the second or third trimester. (Abruptio placentae presents with painful, dark red bleeding and a rigid uterus)."
+    },
+    {
+        "q": "A patient at 36 weeks gestation presents with severe abdominal pain, a rigid, 'board-like' uterus, and dark red vaginal bleeding. Fetal heart monitoring shows late decelerations. What is the immediate nursing priority?",
+        "o": ["Perform a digital vaginal examination to assess cervical dilation.", "Prepare for emergency Cesarean delivery while administering oxygen and establishing large-bore IV access.", "Administer oxytocin to stimulate uterine contractions for rapid vaginal delivery.", "Place the patient in a flat supine position."],
+        "a": 1,
+        "t": "OBG - Antepartum Emergencies",
+        "e": "This represents Abruptio Placentae (premature separation of the placenta), causing concealed or revealed hemorrhage, severe pain, and uterine hypertonicity/rigidity. Digital vaginal exams are strictly CONTRAINDICATED in third-trimester bleeding until placenta previa is ruled out by ultrasound. Immediate C-section is often required for fetal distress."
+    },
+    {
+        "q": "A patient with severe preeclampsia is receiving an intravenous Magnesium Sulfate infusion. The nurse assesses the patient and notes a respiratory rate of 8 breaths/min, absent deep tendon reflexes, and urine output of 15 mL/hr. What is the immediate, life-saving nursing action?",
+        "o": ["Increase the magnesium infusion rate to prevent eclamptic seizures.", "Stop the Magnesium Sulfate infusion immediately and prepare to administer IV Calcium Gluconate.", "Administer IV Furosemide to stimulate renal output.", "Place the patient in the Trendelenburg position."],
+        "a": 1,
+        "t": "OBG - Pharmacology / Complications",
+        "e": "These findings indicate magnesium toxicity (loss of DTRs occurs first, followed by respiratory depression <12 breaths/min, and oliguria). The infusion must be stopped instantly, and the specific antidote, Calcium Gluconate, must be administered to reverse neuromuscular blockade."
+    },
+    {
+        "q": "During the second stage of labor, the fetal head delivers, but then retracts tightly against the perineum (turtle sign). The nurse recognizes Shoulder Dystocia. What is the immediate nursing maneuver to perform?",
+        "o": ["Apply heavy fundal pressure to push the baby out.", "Perform the McRoberts maneuver (hyperflexing the mother's legs tightly to her abdomen) and apply suprapubic pressure.", "Place the mother in the Trendelenburg position.", "Prepare for an emergency hysterectomy."],
+        "a": 1,
+        "t": "OBG - Intrapartum Emergencies",
+        "e": "Shoulder dystocia occurs when the anterior fetal shoulder impacts against the maternal pubic symphysis. Fundal pressure is strictly CONTRAINDICATED because it wedges the shoulder tighter. The nurse must immediately execute the McRoberts maneuver and apply suprapubic pressure (never fundal pressure) to dislodge the shoulder."
+    },
+    {
+        "q": "A laboring patient's external fetal monitor shows uniform decelerations that mirror the uterine contractions—onset, nadir, and recovery coincide with the beginning, peak, and end of the contraction. What is the underlying cause?",
+        "o": ["Umbilical cord compression", "Uteroplacental insufficiency", "Head compression", "Fetal hypoxia"],
+        "a": 2,
+        "t": "OBG - Fetal Monitoring",
+        "e": "Early decelerations mirror uterine contractions and are caused by physiological head compression during descent. They are benign and require no intervention."
+    },
+    {
+        "q": "A laboring patient's monitor shows late decelerations, where the deceleration begins *after* the contraction starts and lowest point (nadir) occurs *after* the peak of the contraction. What is the priority nursing intervention?",
+        "o": ["Document the finding as a normal variant.", "Reposition the mother to the left lateral position, administer 10L oxygen via non-rebreather, stop oxytocin if running, and notify the provider.", "Prepare for immediate vaginal delivery without intervention.", "Massage the mother's abdomen."],
+        "a": 1,
+        "t": "OBG - Intrapartum Complications",
+        "e": "Late decelerations indicate uteroplacental insufficiency (impaired blood flow/oxygenation to the fetus). Priority intrauterine resuscitation steps include: left lateral positioning, IV fluid bolus, oxygen administration, and discontinuing uterotonics (oxytocin)."
+    },
+    {
+        "q": "A pregnant woman at 10 weeks gestation presents with severe, intractable nausea and vomiting, weight loss exceeding 5% of pre-pregnancy weight, ketonuria, and electrolyte imbalances. What diagnosis is established?",
+        "o": ["Hyperemesis Gravidarum", "Preeclampsia", "Normal morning sickness", "Echogenic bowel syndrome"],
+        "a": 0,
+        "t": "OBG - Early Pregnancy Complications",
+        "e": "Hyperemesis Gravidarum goes beyond normal morning sickness, characterized by severe persistent vomiting, starvation ketosis, electrolyte disturbances, and dehydration requiring hospitalization."
+    },
+    {
+        "q": "A postpartum patient 2 hours following a vaginal delivery has a saturated perineal pad every 15 minutes, a boggy uterus located above the umbilicus and displaced to the right, and blood pressure of 90/50 mmHg. What is the immediate nursing action?",
+        "o": ["Massage the boggy uterus firmly and assist the patient to empty her urinary bladder.", "Administer Methylergonovine IM immediately without assessment.", "Prepare for emergency blood transfusion.", "Check for retained placental fragments."],
+        "a": 0,
+        "t": "OBG - Postpartum Hemorrhage",
+        "e": "A boggy uterus indicates uterine atony (the leading cause of PPH). A displaced uterus (usually to the right) indicates a distended bladder, which prevents the uterus from contracting. The nurse must massage the uterus and assist the patient to void (or catheterize) to allow effective uterine contraction."
+    },
+    {
+        "q": "A pregnant woman at 28 weeks gestation is Rh-negative, and her indirect Coombs test is negative. What is the correct nursing and medical management plan?",
+        "o": ["Administer RhoGAM immediately and repeat at 36 weeks.", "Administer RhoGAM at 28 weeks gestation and again within 72 hours postpartum if the newborn is Rh-positive.", "No action is needed until delivery.", "Administer Rh immunoglobulin only if she develops bleeding."],
+        "a": 1,
+        "t": "OBG - Prenatal Care / Immunology",
+        "e": "An Rh-negative mother with a negative Coombs test has not yet formed antibodies against Rh factor. To prevent isoimmunization, she must receive RhoGAM (Rh immunoglobulin) prophylactically at 28 weeks gestation and within 72 hours after delivery if the baby is confirmed Rh-positive."
+    },
+    {
+        "q": "A pregnant patient undergoes a non-stress test (NST) at 38 weeks gestation. The baseline is 140 bpm, and over 20 minutes, there are two accelerations of 15 bpm lasting 15 seconds each, associated with fetal movement. How is this NST interpreted?",
+        "o": ["Non-reactive; indicative of fetal hypoxia", "Reactive; normal and reassuring", "Sinusoidal; indicative of severe fetal anemia", "Unsatisfactory due to insufficient tracing time"],
+        "a": 1,
+        "t": "OBG - Fetal Assessment",
+        "e": "A reactive NST (the gold standard for fetal well-being) requires at least two qualifying accelerations (peak of 15 bpm above baseline, lasting 15 seconds) within a 20-minute window."
+    },
+    {
+        "q": "A patient at 37 weeks gestation is evaluated for labor induction. The Bishop score is calculated. Which factors make up the 5 components of the Bishop score?",
+        "o": ["Maternal age, parity, weight gain, blood pressure, and fetal station", "Cervical dilation, effacement, station, consistency, and position", "Fetal heart rate, amniotic fluid volume, placental grade, and cervical length", "Uterine contraction frequency, intensity, duration, and resting tone"],
+        "a": 1,
+        "t": "OBG - Labor Induction",
+        "e": "The Bishop score assesses cervical ripeness to predict the success of labor induction. Its 5 components are: cervical dilation, effacement, station, consistency, and position."
+    },
+    {
+        "q": "A woman presents at 8 weeks gestation with dark brown vaginal bleeding ('prune juice' appearance), uterus significantly larger than expected for gestational dates, severe hyperemesis, and markedly elevated hCG levels without fetal heart tones on ultrasound. What condition is suspected?",
+        "o": ["Ectopic Pregnancy", "Hydatidiform Mole (Molar Pregnancy)", "Missed Abortion", "Placenta Previa"],
+        "a": 1,
+        "t": "OBG - Gestational Trophoblastic Disease",
+        "e": "A Hydatidiform Mole (Molar Pregnancy) is characterized by abnormal trophoblastic proliferation, 'snowstorm' ultrasound pattern, hyperemesis, excessively high hCG, and absence of fetal parts."
+    },
+    {
+        "q": "A postpartum patient on day 4 post-delivery reports chills, lower abdominal pain, and foul-smelling, purulent lochia. Temperature is 101.5°F (38.6°C). What condition does this indicate?",
+        "o": ["Postpartum blues", "Postpartum Endometritis (Metritis)", "Normal lochia serosa transition", "Mastitis"],
+        "a": 1,
+        "t": "OBG - Postpartum Infections",
+        "e": "Fever, uterine tenderness, and foul-smelling lochia within the first few days postpartum are the classic clinical signs of Postpartum Endometritis, an infection of the uterine lining most commonly following C-section or prolonged rupture of membranes."
+    },
+    {
+        "q": "A breastfeeding mother at 3 weeks postpartum presents with a localized, painful, erythematous, wedge-shaped area on her right breast, accompanied by fever and chills. What is the priority management?",
+        "o": ["Immediately discontinue breastfeeding from both breasts and pump and dump.", "Apply tight breast binders to suppress milk production.", "Continue frequent breastfeeding (or pumping), apply warm compresses, ensure proper latch, and prescribe antibiotics (e.g., Dicloxacillin).", "Incis and drain the breast abscess immediately."],
+        "a": 2,
+        "t": "OBG - Postpartum Complications",
+        "e": "This patient has acute Mastitis. Emptying the breast is crucial; breastfeeding should continue frequently to clear the infection. Antibiotics, warm showers, and rest are standard therapy. Discontinuing breastfeeding worsens milk stasis and abscess formation."
+    },
+    {
+        "q": "A patient at 7 weeks gestation presents with unilateral sharp pelvic pain, delayed menses, and minor dark vaginal spotting. Suddenly, she develops excruciating sharp lower abdominal pain radiating to her right shoulder. What emergency has occurred?",
+        "o": ["Appendicitis", "Ruptured Ectopic Pregnancy", "Ovarian Torsion", "Spontaneous Miscarriage"],
+        "a": 1,
+        "t": "OBG - Ectopic Pregnancy",
+        "e": "An ectopic pregnancy occurs when a fertilized ovum implants outside the uterus (usually Fallopian tube). Sudden severe pain radiating to the shoulder is a hallmark sign of intraperitoneal hemorrhage and diaphragmatic irritation from a ruptured ectopic pregnancy."
+    },
+    {
+        "q": "A laboring patient receives an epidural block for pain management. Shortly after placement, the nurse notes the mother's blood pressure drops from 120/80 to 80/40 mmHg, and the fetal monitor shows late decelerations. What is the immediate priority nursing action?",
+        "o": ["Administer IV Epinephrine immediately.", "Place the mother in a lateral tilt/displacement position, administer an IV fluid bolus, and give oxygen.", "Remove the epidural catheter immediately.", "Lower the head of the bed into Trendelenburg position."],
+        "a": 1,
+        "t": "OBG - Obstetric Anesthesia",
+        "e": "Sympathetic blockade from epidural anesthesia commonly causes sudden maternal hypotension, which compromises uteroplacental blood flow. Immediate interventions include uterine displacement (left lateral tilt), rapid IV fluid bolus, and supplemental oxygen."
+    },
+    {
+        "q": "What is the physiological hallmark that distinguishes true labor contractions from false labor (Braxton Hicks) contractions?",
+        "o": ["True contractions cause pain in the abdomen; false contractions cause pain in the back.", "True contractions cause progressive cervical dilation and effacement; false contractions do not produce cervical changes.", "True contractions stop when the mother walks around; false contractions get stronger with walking.", "True contractions occur at irregular intervals."],
+        "a": 1,
+        "t": "OBG - Labor Physiology",
+        "e": "True labor contractions become regular, increase in frequency, duration, and intensity, and crucially result in progressive cervical dilation and effacement. Braxton Hicks contractions are irregular and do not cause cervical changes."
+    },
+    {
+        "q": "A postpartum client who delivered 6 hours ago has a boggy uterus and heavy bleeding. The provider orders Methylergonovine (Methergine) IM. What is a strict medical contraindication for administering this drug?",
+        "o": ["History of gestational diabetes", "Pre-existing or chronic Hypertension", "A history of postpartum depression", "Multiparity"],
+        "a": 1,
+        "t": "OBG - Postpartum Pharmacology",
+        "e": "Methylergonovine is a potent vasoconstrictor used to control PPH. It is strictly contraindicated in patients with hypertension because it can trigger severe hypertensive crisis, stroke, or myocardial infarction."
+    },
+    {
+        "q": "During a sterile speculum exam on a patient with third-trimester bleeding, the nurse notes the provider immediately stops the exam and orders an ultrasound before proceeding. Why was the digital vaginal examination avoided?",
+        "o": ["To prevent introducing a vaginal infection", "Because digital examination in the presence of Placenta Previa can violently disrupt the placenta, causing catastrophic, life-threatening maternal hemorrhage", "Because the cervix is fully dilated", "Digital exams are never contraindicated in pregnancy"],
+        "a": 1,
+        "t": "OBG - Antepartum Safety",
+        "e": "In third-trimester bleeding where placenta previa is suspected, digital vaginal examinations must NEVER be performed. Inserting fingers into the vagina can poke through or disrupt the low-lying placenta, precipitating massive, catastrophic hemorrhage."
+    },
+    {
+        "q": "A pregnant woman at 24 weeks gestation undergoes a 1-hour Oral Glucose Tolerance Test (OGTT) and scores 145 mg/dL. What is the mandatory next step in management?",
+        "o": ["Diagnose Gestational Diabetes immediately and start insulin.", "Perform a 3-hour diagnostic Oral Glucose Tolerance Test (OGTT) for definitive confirmation.", "Re-test the 1-hour OGTT in the third trimester.", "Advise strict carbohydrate elimination."],
+        "a": 1,
+        "t": "OBG - Gestational Diabetes",
+        "e": "A screening 1-hour OGTT value of \u2265130 or 140 mg/dL is abnormal and requires a confirmatory 3-hour diagnostic OGTT to officially diagnose Gestational Diabetes Mellitus (GDM)."
+    },
+
+    // --- SECTION 4: Psychiatric Nursing & Mental Health (Q61 - Q80) ---
+    {
+        "q": "A patient with schizophrenia is admitted to the psychiatric unit. They report hearing voices commanding them to 'harm the nurse' and exhibit flat affect and social withdrawal. How should the nurse correctly categorize these symptoms?",
+        "o": ["Auditory hallucinations and delusions are negative symptoms; flat affect is a positive symptom.", "Auditory hallucinations and command hallucinations are positive symptoms; flat affect and social withdrawal are negative symptoms.", "All symptoms described are positive symptoms.", "All symptoms described are negative symptoms."],
+        "a": 1,
+        "t": "Psychiatry - Schizophrenia",
+        "e": "Positive symptoms of schizophrenia represent an 'excess' or distortion of normal functions (hallucinations, delusions, bizarre behavior). Negative symptoms represent a 'deficit' or loss of normal functions (flat affect, alogia, avolition, anhedonia, social withdrawal)."
+    },
+    {
+        "q": "A patient with Bipolar I Disorder is prescribed Lithium Carbonate. The patient's serum lithium level is 1.8 mEq/L. The nurse observes coarse hand tremors, ataxia, confusion, and sluggishness. How do these findings correlate with this lab result?",
+        "o": ["This is a therapeutic serum level; no action is needed.", "This indicates moderate-to-severe lithium toxicity, as the therapeutic window is strictly 0.6–1.2 mEq/L.", "This indicates subtherapeutic levels; the dose must be increased.", "This is a normal finding during the maintenance phase."],
+        "a": 1,
+        "t": "Psychiatry - Psychopharmacology",
+        "e": "The therapeutic range for lithium maintenance is 0.6–1.2 mEq/L. Levels above 1.5 mEq/L indicate toxicity (coarse tremors, ataxia, confusion, nystagmus, GI distress). Levels > 2.0 mEq/L are life-threatening."
+    },
+    {
+        "q": "A patient taking Haloperidol (a typical antipsychotic) for 5 days suddenly develops a high fever (104°F), severe muscle rigidity ('lead-pipe rigidity'), labile blood pressure, diaphoresis, and altered mental status. What is this life-threatening emergency?",
+        "o": ["Serotonin Syndrome", "Malignant Hyperthermia", "Neuroleptic Malignant Syndrome (NMS)", "Extrapyramidal Symptoms (Acute Dystonia)"],
+        "a": 2,
+        "t": "Psychiatry - Adverse Drug Reactions",
+        "e": "Neuroleptic Malignant Syndrome (NMS) is a rare, highly lethal adverse reaction to antipsychotics. The hallmark tetrad is: extreme hyperpyrexia, severe lead-pipe muscle rigidity, autonomic instability (labile BP/sweating), and encephalopathy. Treatment includes stopping the drug and administering Dantrolene or Bromocriptine."
+    },
+    {
+        "q": "A patient with Major Depressive Disorder has been taking an SSRI (Fluoxetine) for 3 weeks and recently added an MAOI (Phenelzine) without a washout period. They present with agitation, myoclonus, hyperreflexia, diaphoresis, and shivering. What condition has occurred?",
+        "o": ["Neuroleptic Malignant Syndrome", "Serotonin Syndrome", "Lithium Toxicity", "Hypertensive Crisis"],
+        "a": 1,
+        "t": "Psychiatry - Psychopharmacology",
+        "e": "Serotonin Syndrome occurs due to overactivation of central serotonin receptors, typically from combining serotonergic agents (SSRI + MAOI). Key signs include mental status changes, autonomic instability (diaphoresis, tachycardia), and neuromuscular hyperactivity (myoclonus, hyperreflexia, tremors)."
+    },
+    {
+        "q": "A patient with severe anxiety pacing the hallway suddenly stops, clutches their chest, and gasps, 'I am having a heart attack! I am going to die!' The nurse assesses vitals and finds HR 130 bpm, BP 150/90, RR 30 bpm. Cardiac workup in the ED is completely negative. What is the priority nursing intervention?",
+        "o": ["Leave the patient alone in a quiet room to calm down.", "Stay with the patient, maintain a calm, reassuring demeanor, use short, simple sentences, and encourage slow breathing.", "Administer high-dose antipsychotics.", "Routinely restrain the patient to prevent injury."],
+        "a": 1,
+        "t": "Psychiatry - Anxiety Disorders",
+        "e": "During an acute panic attack, the patient experiences extreme terror and cognitive impairment. The nurse must NEVER leave the patient alone (which increases panic). The nurse should stay, remain calm, speak in brief, clear sentences, and help regulate breathing."
+    },
+    {
+        "q": "A patient with Obsessive-Compulsive Disorder (OCD) spends hours washing their hands until they bleed, driven by intrusive thoughts of contamination. What is the most appropriate initial nursing management regarding their ritual during the acute phase?",
+        "o": ["Immediately forbid the patient from washing their hands to break the habit.", "Allow the patient to perform the ritual while gradually setting limits and structuring time, supporting them with cognitive-behavioral techniques like exposure and response prevention.", "Provide antiseptic soap and encourage frequent washing to prevent infection.", "Punish the patient when they wash their hands."],
+        "a": 1,
+        "t": "Psychiatry - Anxiety & OCD",
+        "e": "In the acute phase of OCD, abruptly stopping a compulsive ritual causes extreme, unbearable anxiety. The nurse should not abruptly halt rituals; instead, allow time for the ritual initially while setting gentle limits and structuring the day to gradually decrease frequency using behavioral therapy."
+    },
+    {
+        "q": "A patient with anorexia nervosa is admitted with a BMI of 13, severe bradycardia (HR 42 bpm), and hypokalemia. The nurse initiates refeeding. Within 48 hours, the patient develops peripheral edema, crackles in the lungs, and sudden confusion. What life-threatening shift has occurred?",
+        "o": ["Refeeding Syndrome", "Thyroid Storm", "Adrenal Crisis", "Water Intoxication"],
+        "a": 0,
+        "t": "Psychiatry - Eating Disorders",
+        "e": "Refeeding Syndrome is a catastrophic metabolic complication when malnourished patients are fed too aggressively. Carbohydrate reintroduction triggers a massive insulin surge, driving phosphorus, potassium, and magnesium rapidly into cells. This causes severe hypophosphatemia, cardiac failure, and pulmonary edema."
+    },
+    {
+        "q": "A patient with Paranoid Schizophrenia refuses to eat hospital food, stating, 'The nurses are trying to poison me with arsenic in the soup.' What is the nurse's best therapeutic response?",
+        "o": ["'That is ridiculous; nobody is trying to poison you.'", "'Why do you think the nurses want to harm you?'", "'I understand you believe the food is poisoned, but I can assure you the food is safe. Here is a sealed can of soup and pre-packaged crackers.'", "'If you don't eat this food, we will place a nasogastric feeding tube.'"],
+        "a": 2,
+        "t": "Psychiatry - Therapeutic Communication",
+        "e": "Do not argue with or validate a delusion (do not agree the food is poisoned), but do not directly challenge or dismiss their fear aggressively. Acknowledge their feeling, state reality calmly, and offer tamper-proof, pre-packaged food (unsealed cans/crackers) to build trust."
+    },
+    {
+        "q": "A patient diagnosed with Antisocial Personality Disorder manipulates staff, breaks unit rules, and shows a complete lack of remorse after stealing another patient's belongings. What is the foundational nursing approach for managing this patient?",
+        "o": ["Provide continuous sympathy and unconditional emotional support to heal their inner child.", "Establish clear, firm, and consistent boundaries and unit limits, enforcing natural consequences for negative behaviors collaboratively with the multidisciplinary team.", "Isolate the patient in a locked seclusion room indefinitely.", "Ignore all rule-breaking behaviors to avoid rewarding them with attention."],
+        "a": 1,
+        "t": "Psychiatry - Personality Disorders",
+        "e": "Patients with Antisocial Personality Disorder lack empathy and manipulate staff. The core nursing strategy is maintaining strict, consistent, and clear boundaries, enforcing firm unit rules, and holding them accountable through consistent staff communication to prevent splitting."
+    },
+    {
+        "q": "A patient with a history of chronic alcohol abuse is admitted for detoxification. 48 hours after their last drink, they become intensely tremulous, tachycardic, hypertensive, diaphoretic, and begin experiencing terrifying visual and tactile hallucinations (seeing bugs crawling on the walls). What medical emergency is this?",
+        "o": ["Wernicke-Korsakoff Syndrome", "Alcohol Withdrawal Delirium (Delirium Tremens - DTs)", "Hepatic Encephalopathy", "Opioid Withdrawal"],
+        "a": 1,
+        "t": "Psychiatry - Substance Abuse / Emergencies",
+        "e": "Delirium Tremens (DTs) is a medical emergency occurring 48–72 hours after cessation of heavy alcohol use. It features profound autonomic hyperactivity (tachycardia, hypertension, fever), severe disorientation, and vivid hallucinations (often tactile/visual). It carries a high mortality rate and requires ICU admission and benzodiazepines."
+    },
+    {
+        "q": "A patient with Wernicke-Korsakoff Syndrome secondary to chronic alcoholism and severe malnutrition is admitted. The nurse expects the provider to order which immediate vitamin supplementation?",
+        "o": ["Vitamin B1 (Thiamine)", "Vitamin B12 (Cobalamin)", "Vitamin C (Ascorbic Acid)", "Vitamin D3 (Cholecalciferol)"],
+        "a": 0,
+        "t": "Psychiatry - Substance Abuse / Nutrition",
+        "e": "Wernicke-Korsakoff syndrome is caused by a severe deficiency of Vitamin B1 (Thiamine), common in chronic alcoholism. Acute Wernicke's encephalopathy (confusion, ataxia, ophthalmoplegia) requires immediate IV Thiamine administration *before* any glucose infusions to prevent permanent brain damage."
+    },
+    {
+        "q": "A patient with Borderline Personality Disorder (BPD) tells one nurse, 'You are the only nurse who actually understands me and cares; everyone else on this unit is cruel and useless.' Two hours later, that same patient screams at the nurse, 'You are the worst nurse ever! I hate you!' What defense mechanism is this patient displaying?",
+        "o": ["Projection", "Rationalization", "Splitting (All-or-None thinking)", "Reaction Formation"],
+        "a": 2,
+        "t": "Psychiatry - Personality Disorders",
+        "e": "Splitting is a primitive defense mechanism common in BPD where people, situations, or staff are viewed as entirely 'all good' or entirely 'all bad'. Consistent, unified staff communication is required to prevent staff manipulation."
+    },
+    {
+        "q": "A patient experiencing a severe manic episode in Bipolar I Disorder is pacing the hallway, shouting, rapidly talking over everyone, and throwing food at other patients. What is the most effective initial nursing intervention?",
+        "o": ["Engage the patient in a long, detailed discussion about their behavior.", "Provide a quiet, low-stimulation environment and redirect them to a simple, solitary, non-competitive physical activity.", "Allow the patient to continue to maintain their autonomy in the open dayroom.", "Place the patient in four-point physical restraints immediately."],
+        "a": 1,
+        "t": "Psychiatry - Mood Disorders",
+        "e": "Manic patients have very low frustration tolerance and high distractibility. High-stimulation environments escalate mania. The nurse must reduce environmental stimuli, set firm limits, and redirect excess energy into simple, non-stimulating physical tasks (e.g., walking, folding laundry)."
+    },
+    {
+        "q": "A patient with Major Depressive Disorder starts taking an MAOI (Tranylcypromine). The nurse provides strict dietary education. Which food item must the patient completely eliminate to prevent a fatal hypertensive crisis?",
+        "o": ["Fresh apples and bananas", "Aged cheeses, cured meats, red wine, and soy sauce (Tyramine-rich foods)", "Pasteurized milk and yogurt", "Steamed white rice and plain chicken breast"],
+        "a": 1,
+        "t": "Psychiatry - Psychopharmacology",
+        "e": "MAOIs block monoamine oxidase, which breaks down tyramine. Consuming tyramine-rich foods (aged cheese, cured meats, fermented items, beer, wine) causes massive systemic norepinephrine release, triggering a catastrophic Hypertensive Crisis (severe occipital headache, stroke, death)."
+    },
+    {
+        "q": "A patient with Catatonic Schizophrenia remains motionless in a rigid, statue-like posture for hours, and if the nurse moves their arm into an awkward position, the arm stays locked in that position indefinitely. What are these specific catatonic signs called?",
+        "o": ["Echopraxia and Echolalia", "Waxy flexibility (Catalepsy) and Catatonic Posturing", "Avolition and Anhedonia", "Tardive Dyskinesia"],
+        "a": 1,
+        "t": "Psychiatry - Schizophrenia",
+        "e": "Waxy flexibility (catalepsy) is the maintenance of a posture passively placed by another person. Catatonic posturing involves voluntarily assuming bizarre or inappropriate rigid postures for long periods."
+    },
+    {
+        "q": "A patient with severe Post-Traumatic Stress Disorder (PTSD) experiences a sudden combat flashback and becomes aggressive. What is the priority nursing intervention?",
+        "o": ["Challenge their cognitive distortion by proving they are safe in the hospital.", "Ensure a safe distance, speak in a calm, grounded voice, orient them to the present environment ('You are safe in the hospital, your name is...'), and avoid sudden touch.", "Administer an IV push narcotic.", "Leave the room immediately."],
+        "a": 1,
+        "t": "Psychiatry - Anxiety / Trauma",
+        "e": "During a flashback, the patient is reliving the trauma. The nurse must ensure physical safety, keep a calm grounded presence, reorient them to the *here and now*, and avoid touching them without permission (which can trigger defensive violence)."
+    },
+    {
+        "q": "A patient with Somatic Symptom Disorder visits multiple physicians complaining of severe, disabling abdominal pain, fatigue, and neurological numbness, yet extensive medical workups continuously reveal zero organic pathology. How should the nurse best respond to the patient's complaints?",
+        "o": ["Tell the patient, 'Your labs are normal, so your pain is just in your head.'", "Acknowledge that the physical pain and suffering are very real to the patient, while gradually shifting the focus away from physical complaints to coping mechanisms for stress.", "Refer the patient to a surgeon for exploratory laparoscopy.", "Ignore the complaints to discourage secondary gain."],
+        "a": 1,
+        "t": "Psychiatry - Somatoform Disorders",
+        "e": "Patients with Somatic Symptom Disorder genuinely experience physical pain driven by psychological distress. Telling them 'it's in their head' damages trust. The nurse must validate that their suffering is real while helping them identify links between emotional stress and physical symptoms."
+    },
+    {
+        "q": "A client is prescribed Clozapine for treatment-resistant schizophrenia. Which mandatory weekly or bi-weekly laboratory monitoring is legally required for this medication?",
+        "o": ["Liver function tests (LFTs)", "Absolute Neutrophil Count (ANC) via complete blood count (CBC)", "Serum creatinine and BUN", "Thyroid stimulating hormone (TSH)"],
+        "a": 1,
+        "t": "Psychiatry - Psychopharmacology",
+        "e": "Clozapine carries a severe risk of life-threatening agranulocytosis (severe drop in white blood cells). Mandatory ANC and CBC monitoring is legally enforced under strict REMS safety programs before dispensing the medication."
+    },
+    {
+        "q": "A patient with Generalized Anxiety Disorder (GAD) is prescribed Buspirone. The patient complains after 3 days that 'the pill is completely useless and doesn't stop my anxiety.' How should the nurse respond?",
+        "o": ["'Stop taking it immediately and call your doctor for a benzodiazepine.'", "'Buspirone takes 2 to 4 weeks to achieve full therapeutic anxiolytic efficacy; it is not an immediate rescue medication.'", "'Double your dose starting today.'", "'You must be taking it incorrectly; swallow it with grapefruit juice.'"],
+        "a": 1,
+        "t": "Psychiatry - Psychopharmacology",
+        "e": "Buspirone is a non-benzodiazepine anxiolytic that does not cause sedation or dependence, but it has a delayed onset of action, requiring 2–4 weeks for therapeutic blood levels. It cannot be used as an 'as-needed' acute rescue drug."
+    },
+    {
+        "q": "A psychiatric nurse is reviewing the rights of involuntarily committed patients. Which right is RETAINED by an involuntarily committed patient who has not been adjudicated legally incompetent?",
+        "o": ["The absolute right to leave the hospital grounds whenever they want.", "The right to refuse psychotropic medications (barring an acute emergency where they pose immediate danger to self/others).", "The right to refuse all physical health examinations.", "The right to have unrestricted visitor access 24/7."],
+        "a": 1,
+        "t": "Psychiatry - Legal & Ethics",
+        "e": "Involuntary commitment restricts a patient's freedom of movement, but it does NOT automatically strip them of their civil rights or competence. Unless a court declares them legally incompetent, they retain the right to refuse treatment, *unless* an acute emergency occurs where they present immediate danger to themselves or others."
+    },
+
+    // --- SECTION 5: Nursing Research & Community Health Nursing (CHN) (Q81 - Q100) ---
+    {
+        "q": "A nurse researcher conducts a study testing a new wound care protocol. The resulting statistical test yields a p-value of 0.03. Assuming the alpha level (significance level) was set at 0.05, how should the researcher interpret this result?",
+        "o": ["The finding is not statistically significant; fail to reject the null hypothesis.", "The finding is statistically significant; reject the null hypothesis, indicating there is only a 3% probability that the results occurred purely by chance.", "There is a 97% chance that the research hypothesis is completely false.", "The sample size was too small to draw conclusions."],
+        "a": 1,
+        "t": "Nursing Research - Statistics",
+        "e": "A p-value represents the probability that the observed results occurred by random chance. A p-value < 0.05 indicates statistical significance, meaning the researcher rejects the null hypothesis and accepts that the intervention likely caused the effect."
+    },
+    {
+        "q": "In a qualitative research study examining the lived experiences of mothers of children with autism, the researcher continues interviewing participants until no new data, themes, or insights emerge. What is this methodological research term?",
+        "o": ["Data Saturation", "Random Sampling", "Triangulation", "Generalizability"],
+        "a": 0,
+        "t": "Nursing Research - Qualitative Methods",
+        "e": "Data saturation is the point in qualitative research when sampling more participants yields no new information, themes, or coding categories, signaling that data collection is complete."
+    },
+    {
+        "q": "A researcher wants to study the relationship between smoking pack-years and the incidence of lung cancer. The study starts with individuals who have lung cancer and a control group without lung cancer, looking backward in time to compare their historical smoking exposures. What type of research design is this?",
+        "o": ["Cohort study", "Randomized Controlled Trial (RCT)", "Case-Control study", "Cross-sectional survey"],
+        "a": 2,
+        "t": "Nursing Research - Designs",
+        "e": "A case-control study starts with the outcome (cases with disease vs. controls without disease) and looks backward in time to determine exposure history (retrospective). A cohort study starts with the exposure and looks forward to the outcome."
+    },
+    {
+        "q": "What is the primary distinguishing characteristic of a True Experimental Research Design (Randomized Controlled Trial - RCT)?",
+        "o": ["Quasi-random assignment and retrospective data collection", "Manipulation of an independent variable, random assignment of subjects to groups, and presence of a control group", "Observational description of variables without intervention", "Purely qualitative interviews"],
+        "a": 1,
+        "t": "Nursing Research - Quantitative Designs",
+        "e": "A true experimental design (RCT) requires three mandatory elements: 1) Manipulation (the researcher applies an intervention/treatment), 2) Control (use of a control group), and 3) Randomization (random assignment of subjects to experimental or control groups)."
+    },
+    {
+        "q": "A nurse researcher evaluates a newly developed depression screening tool. Participants take the tool twice, 2 weeks apart, and the scores are highly consistent across both testing sessions. What psychometric property is this tool demonstrating?",
+        "o": ["Validity", "Reliability (Test-Retest)", "Sensitivity", "Specificity"],
+        "a": 1,
+        "t": "Nursing Research - Measurement",
+        "e": "Reliability refers to the consistency, stability, and reproducibility of a measurement tool. Test-retest reliability assesses stability over time by administering the same instrument to the same people on two separate occasions."
+    },
+    {
+        "q": "In Community Health Nursing (CHN), what is the primary objective of 'Primary Prevention'?",
+        "o": ["Screening individuals to detect disease early in its preclinical stage", "Preventing the initial occurrence of a disease or injury through health promotion and risk reduction (e.g., immunizations)", "Treating clinical disease to halt complications and restore functioning", "Providing palliative and hospice care for terminal illnesses"],
+        "a": 1,
+        "t": "CHN - Levels of Prevention",
+        "e": "Primary prevention aims to prevent disease before it ever happens (vaccinations, education, sanitation). Secondary prevention focuses on early screening and detection (mammograms, pap smears, BP screenings). Tertiary prevention focuses on treatment, rehabilitation, and halting disease progression."
+    },
+    {
+        "q": "A community health nurse is investigating an outbreak of food poisoning at a local community picnic. Sixty people ate potato salad, and 45 of them developed severe gastroenteritis. Calculate the Attack Rate.",
+        "o": ["25%", "60%", "75%", "100%"],
+        "a": 2,
+        "t": "CHN - Epidemiology",
+        "e": "Attack rate is a specific type of incidence rate used during disease outbreaks. Formula: (Number of people who fell ill / Total number of people exposed) x 100. (45 / 60) x 100 = 75%."
+    },
+    {
+        "q": "When calculating epidemiological statistics for a community, 'Prevalence' differs from 'Incidence' in that Prevalence measures:",
+        "o": ["The number of NEW cases of a disease in a population over a specific time period.", "The total number of ALL existing cases (both old and new) of a disease in a population at a given point in time.", "The mortality rate attributed to a specific infectious agent.", "The proportion of healthy people who contract an infection."],
+        "a": 1,
+        "t": "CHN - Epidemiology",
+        "e": "Incidence measures ONLY new cases of a disease over a time period (measuring risk/spread). Prevalence measures ALL existing cases (old + new) at a given point in time (measuring overall burden of disease in the community)."
+    },
+    {
+        "q": "A community health nurse uses the 'Epidemiological Triangle' model to analyze disease transmission in an outbreak. What are the three interactive components of this triangle?",
+        "o": ["Host, Agent, and Environment", "Agent, Vector, and Treatment", "Sanitation, Housing, and Income", "Pathogen, Immunity, and Mortality"],
+        "a": 0,
+        "t": "CHN - Epidemiology",
+        "e": "The Epidemiological Triangle consists of the Host (the human who can get the disease), the Agent (the microbial, chemical, or physical cause of the disease), and the Environment (external factors that allow transmission between host and agent)."
+    },
+    {
+        "q": "According to the National Health Policy (NHP) of India, what is the stated target for total government health expenditure as a percentage of the Gross Domestic Product (GDP)?",
+        "o": ["1.0% of GDP", "1.5% of GDP", "2.5% of GDP", "5.0% of GDP"],
+        "a": 2,
+        "t": "CHN - National Health Programs",
+        "e": "The National Health Policy of India sets a strategic target to progressively increase government health expenditure to 2.5% of the GDP by the year 2025."
+    },
+    {
+        "q": "Which national health program in India is specifically mandated to provide comprehensive maternal and neonatal healthcare services, including financial assistance, home visits, and institutional delivery promotion (e.g., Janani Suraksha Yojana)?",
+        "o": ["Revised National Tuberculosis Control Programme (RNTCP)", "National Health Mission (NHM) / RMNCH+A", "National Mental Health Programme", "Vector Borne Disease Control Programme"],
+        "a": 1,
+        "t": "CHN - National Health Programs",
+        "e": "The National Health Mission (NHM), incorporating Reproductive, Maternal, Newborn, Child Health, and Adolescent Health (RMNCH+A) services, focuses heavily on reducing maternal and infant mortality through initiatives like JSY and JSSK."
+    },
+    {
+        "q": "A community health nurse organizes a village meeting to discuss clean drinking water and sanitation. Which level of healthcare in the Indian healthcare delivery system does this community-level outreach represent?",
+        "o": ["Primary Healthcare (specifically via Sub-centres and Primary Health Centres)", "Secondary Healthcare (Community Health Centres)", "Tertiary Healthcare (Medical College Hospitals)", "Quaternary Healthcare"],
+        "a": 0,
+        "t": "CHN - Healthcare Delivery System",
+        "e": "Primary healthcare is the first level of contact between individuals and the health system, delivered locally through Village Health Sanitation and Nutrition Committees (VHSNC), ASHAs, Sub-centres, and Primary Health Centres (PHCs)."
+    },
+    {
+        "q": "In a research study, what is the purpose of establishing a 'Null Hypothesis' (H0)?",
+        "o": ["To predict a direct, positive correlation between the independent and dependent variables.", "To state that there is NO significant relationship or difference between the variables being studied, acting as a baseline for statistical testing.", "To prove that the researcher's personal bias is correct.", "To determine the exact sample size needed."],
+        "a": 1,
+        "t": "Nursing Research - Hypotheses",
+        "e": "The null hypothesis (H0) proposes that no statistical significance or relationship exists in a set of given observations. Statistical tests are performed specifically to determine whether the null hypothesis can be rejected in favor of the alternative hypothesis."
+    },
+    {
+        "q": "A researcher conducts a study where participants are randomly assigned to either receive a new educational intervention or standard care. What type of sampling method is random assignment?",
+        "o": ["Non-probability convenience sampling", "Probability sampling / Random assignment (experimental control)", "Quota sampling", "Purposive sampling"],
+        "a": 1,
+        "t": "Nursing Research - Sampling & Design",
+        "e": "Random assignment is an experimental procedure where participants already in a study are randomly allocated to either the experimental or control group, ensuring equal distribution of confounding variables and eliminating selection bias."
+    },
+    {
+        "q": "What is the primary function of an Institutional Review Board (IRB) or Ethics Committee in nursing research?",
+        "o": ["To secure funding grants for the research study", "To review research protocols to ensure the ethical treatment, safety, and protection of human subjects' rights", "To edit and format the final manuscript for publication in academic journals", "To collect statistical data for the researcher"],
+        "a": 1,
+        "t": "Nursing Research - Ethics & IRB",
+        "e": "The primary mandate of an IRB (Institutional Review Board) is to protect the rights, welfare, privacy, and safety of human research participants by reviewing study designs for ethical integrity and informed consent."
+    },
+    {
+        "q": "In descriptive statistics, which measure of central tendency is most severely distorted and skewed by extreme outliers in a dataset?",
+        "o": ["The Median", "The Mode", "The Mean (Average)", "The Interquartile Range"],
+        "a": 2,
+        "t": "Nursing Research - Statistics",
+        "e": "The mean is heavily influenced and skewed by extremely high or low outlier values in a dataset. When data is heavily skewed (such as household income or hospital lengths of stay), the median is a much more accurate measure of central tendency."
+    },
+    {
+        "q": "A community health nurse assesses a local population and identifies that 15% of children under the age of 5 suffer from chronic malnutrition manifested as low height-for-age. What epidemiological term defines this specific growth failure?",
+        "o": ["Wasting", "Stunting", "Underweight", "Kwashiorkor"],
+        "a": 1,
+        "t": "CHN - Nutrition / Maternal Child Health",
+        "e": "Stunting is defined as low height-for-age, reflecting chronic undernutrition and repeated illness over a long period. Wasting is low weight-for-height (acute malnutrition). Underweight is low weight-for-age."
+    },
+    {
+        "q": "What is the core operational unit of healthcare delivery at the village level in rural India under the National Health Mission, staffed by a female community health activist?",
+        "o": ["Community Health Centre (CHC)", "Primary Health Centre (PHC)", "Sub-centre", "ASHA (Accredited Social Health Activist) working with the Village Health Sanitation and Nutrition Committee"],
+        "a": 3,
+        "t": "CHN - Community Organization",
+        "e": "The ASHA (Accredited Social Health Activist) is the frontline community health worker acting as an interface between the community and the public healthcare system at the village level."
+    },
+    {
+        "q": "A nurse researcher wants to evaluate whether a new nursing simulation lab improves student clinical competence scores on a scale of 0 to 100. Which parametric statistical test should be used to compare the mean scores of two independent groups of students (traditional vs. simulation)?",
+        "o": ["Chi-square test", "Pearson correlation coefficient", "Independent samples t-test", "Mann-Whitney U test"],
+        "a": 2,
+        "t": "Nursing Research - Inferential Statistics",
+        "e": "An Independent Samples t-test is used to compare the means of a continuous, normally distributed variable (clinical score) between two separate, independent groups (traditional students vs. simulation students)."
+    },
+    {
+        "q": "In a qualitative research study, the concept of 'Credibility' corresponds most closely to which quantitative research criterion of scientific rigor?",
+        "o": ["Generalizability", "Internal Validity (ensuring the study truly measures what it set out to measure)", "Reliability", "Objectivity"],
+        "a": 1,
+        "t": "Nursing Research - Rigor & Validity",
+        "e": "In qualitative research, 'Credibility' (confidence in the truth of the data) is the qualitative equivalent of Internal Validity in quantitative research, establishing that the research findings are authentic representations of participants' experiences."
+    }
+];
+// Structure into 5 sections of 20 questions each
+let sections = [];
+for (let i = 0; i < 5; i++) {
+    sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
+}
+
+let currentSection = 0;
+let currentQ = 0;
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answeredCount = 0;
+let answersData = Array.from({length: 5}, () => new Array(20).fill(null));
+
+// Timers (in seconds)
+let sectionTimeLeft = 18 * 60; 
+let totalTimeLeft = 90 * 60; 
+let timerInterval;
+
+const quizBody = document.getElementById('quiz-body');
+const scoreEl = document.getElementById('score');
+const qCounterEl = document.getElementById('q-counter');
+const secDisplayEl = document.getElementById('section-display');
+const secTimerEl = document.getElementById('section-timer');
+const totTimerEl = document.getElementById('total-timer');
+const progressEl = document.getElementById('progress');
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+}
+
+function updateTimers() {
+    if (totalTimeLeft <= 0) {
+        clearInterval(timerInterval);
+        finishExam();
+        return;
+    }
+    
+    sectionTimeLeft--;
+    totalTimeLeft--;
+    
+    secTimerEl.innerText = "Section Time: " + formatTime(sectionTimeLeft);
+    totTimerEl.innerText = "Total Time: " + formatTime(totalTimeLeft);
+    
+    if (sectionTimeLeft <= 0) {
+        advanceSection();
+    }
+}
+
+function advanceSection() {
+    if (currentSection < 4) {
+        alert("Time's up for Section " + (currentSection + 1) + ". Auto-advancing to Section " + (currentSection + 2) + ".");
+        currentSection++;
+        currentQ = 0;
+        sectionTimeLeft = 18 * 60; 
+        renderQuestion();
+    } else {
+        clearInterval(timerInterval);
+        finishExam();
+    }
+}
+
+function renderQuestion() {
+    quizBody.innerHTML = '';
+    const q = sections[currentSection][currentQ];
+    const globalQNum = (currentSection * 20) + currentQ + 1;
+    
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-container active';
+    
+    const isAnswered = answersData[currentSection][currentQ] !== null;
+    const selectedIdx = answersData[currentSection][currentQ];
+    
+    let optionsHtml = '';
+    q.o.forEach((opt, optIndex) => {
+        let btnClass = 'option-btn';
+        if (isAnswered) {
+            btnClass += ' disabled';
+            if (optIndex === q.a) btnClass += ' correct';
+            else if (optIndex === selectedIdx) btnClass += ' incorrect';
+        }
+        optionsHtml += '<button class="' + btnClass + '" onclick="checkAnswer(' + optIndex + ', this)">' + String.fromCharCode(65 + optIndex) + '. ' + opt + '</button>';
+    });
+
+    let navHtml = '';
+    if (currentQ > 0) {
+        navHtml += '<button class="nav-btn" onclick="navigate(-1)">Previous</button>';
+    } else {
+        navHtml += '<button class="nav-btn" disabled>Previous</button>';
+    }
+    
+    if (currentQ < 19) {
+        navHtml += '<button class="nav-btn" onclick="navigate(1)">Next</button>';
+    } else {
+        if (currentSection < 4) {
+            navHtml += '<button class="nav-btn" onclick="submitSection()">Submit Section ' + (currentSection + 1) + '</button>';
+        } else {
+            navHtml += '<button class="nav-btn" onclick="finishExam()">Final Submit</button>';
+        }
+    }
+
+    qDiv.innerHTML = '<div class="subject-tag">' + q.t + '</div>' +
+                     '<div class="q-text">Q' + globalQNum + ': ' + q.q + '</div>' +
+                     '<div class="options" id="opts-container">' + optionsHtml + '</div>' +
+                     '<div class="rationale" id="rationale-box" style="display: ' + (isAnswered ? 'block' : 'none') + ';">' +
+                     '<strong>Clinical Rationale:</strong> ' + q.e + '</div>' +
+                     '<div class="navigation">' + navHtml + '</div>';
+    quizBody.appendChild(qDiv);
+    
+    secDisplayEl.innerText = "Section: " + (currentSection + 1) + " / 5";
+    qCounterEl.innerText = "Q: " + (currentQ + 1) + " / 20";
+    
+    const globalProgress = (globalQNum / 100) * 100;
+    progressEl.style.width = globalProgress + '%';
+}
+
+window.checkAnswer = function(selectedOptIndex, btnElement) {
+    if (answersData[currentSection][currentQ] !== null) return; 
+    
+    const q = sections[currentSection][currentQ];
+    answersData[currentSection][currentQ] = selectedOptIndex;
+    
+    const container = document.getElementById('opts-container');
+    const buttons = container.querySelectorAll('.option-btn');
+    
+    buttons.forEach(b => b.classList.add('disabled'));
+    
+    answeredCount++;
+
+    if (selectedOptIndex === q.a) {
+        btnElement.classList.add('correct');
+        score += 1;
+        correctCount++;
+    } else {
+        btnElement.classList.add('incorrect');
+        buttons[q.a].classList.add('correct');
+        score -= 0.3333; 
+        wrongCount++;
+    }
+    
+    document.getElementById('rationale-box').style.display = 'block';
+    scoreEl.innerText = score.toFixed(2);
+}
+
+window.navigate = function(dir) {
+    currentQ += dir;
+    renderQuestion();
+}
+
+window.submitSection = function() {
+    let unans = 0;
+    for(let i=0; i<20; i++) {
+        if(answersData[currentSection][i] === null) unans++;
+    }
+    if(unans > 0) {
+        if(!confirm("You have " + unans + " unattempted questions in this section. Submit and move to next section? You CANNOT return.")) return;
+    } else {
+        if(!confirm("Are you sure you want to submit Section " + (currentSection + 1) + "? You CANNOT return.")) return;
+    }
+    
+    currentSection++;
+    currentQ = 0;
+    sectionTimeLeft = 18 * 60; 
+    renderQuestion();
+}
+
+window.finishExam = function() {
+    clearInterval(timerInterval);
+    quizBody.style.display = 'none';
+    document.querySelector('.dashboard').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'block';
+    
+    let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
+    document.getElementById('final-score-display').innerText = finalScoreFormatted + " / 100";
+    
+    let unattemptedCount = 100 - answeredCount;
+    
+    document.getElementById('stat-att').innerText = answeredCount;
+    document.getElementById('stat-unatt').innerText = unattemptedCount;
+    document.getElementById('stat-corr').innerText = correctCount;
+    document.getElementById('stat-wrong').innerText = wrongCount;
+}
+
+window.onload = function() {
+    renderQuestion();
+    timerInterval = setInterval(updateTimers, 1000);
+};
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NORCET Grand Comprehensive Masterclass - 100 Qs</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
+        
+        body { 
+            background-color: #070b14; 
+            color: #f8fafc; 
+            display: flex; 
+            justify-content: center; 
+            line-height: 1.6; 
+            padding: 20px; 
+        }
+        
+        .container { 
+            max-width: 1100px; 
+            width: 100%; 
+        }
+        
+        /* HEADER */
+        .header { 
+            background: #111827; 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.15); 
+            margin-bottom: 25px; 
+            text-align: center; 
+            border-top: 6px solid #8b5cf6; 
+            border-bottom: 1px solid #1f2937; 
+        }
+        .header h1 { margin: 0 0 5px 0; font-size: 2.2em; color: #a78bfa; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
+        .header p { margin: 0; color: #9ca3af; font-size: 1.05em; font-weight: 500; }
+        
+        /* DASHBOARD - NORCET TIMERS */
+        .dashboard { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: #070b14;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-top: 20px; 
+            border: 1px solid #1f2937; 
+            font-weight: 700; 
+            font-size: 1.2em; 
+            color: #e2e8f0; 
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .stat-box { 
+            background: rgba(139, 92, 246, 0.1); 
+            padding: 8px 16px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(139, 92, 246, 0.3); 
+            color: #a78bfa;
+            text-align: center;
+        }
+        .timer-red { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1); }
+        
+        /* QUESTION AREA */
+        .question-container { background: #111827; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: none; margin-bottom: 20px; border: 1px solid #1f2937; }
+        .question-container.active { display: block; animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .subject-tag { display: inline-block; padding: 5px 15px; background: #070b14; color: #ddd6fe; font-size: 0.85em; border-radius: 20px; margin-bottom: 20px; font-weight: 800; border: 1px solid #7c3aed; text-transform: uppercase; letter-spacing: 1px; }
+        .q-text { font-size: 1.3em; font-weight: 700; margin-bottom: 30px; color: #f8fafc; line-height: 1.6; }
+        
+        /* OPTIONS */
+        .options { display: flex; flex-direction: column; gap: 14px; }
+        .option-btn { background: #070b14; border: 2px solid #1f2937; padding: 20px; border-radius: 12px; text-align: left; font-size: 1.1em; cursor: pointer; transition: all 0.2s; color: #cbd5e1; font-weight: 600; line-height: 1.5; }
+        
+        @media (hover: hover) {
+            .option-btn:hover:not(.disabled) { background: #1f2937; border-color: #8b5cf6; transform: translateX(5px); }
+            .nav-btn:hover:not(:disabled) { background: #7c3aed; box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); transform: translateY(-2px); }
+        }
+
+        .option-btn.correct { background: #064e3b; border-color: #10b981; color: #a7f3d0; font-weight: 700; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .option-btn.incorrect { background: #7f1d1d; border-color: #ef4444; color: #fecaca; box-shadow: 0 0 20px rgba(239, 68, 68, 0.2); }
+        .option-btn.disabled { pointer-events: none; }
+        
+        /* RATIONALE */
+        .rationale { margin-top: 30px; padding: 25px; background: rgba(139, 92, 246, 0.05); border-left: 6px solid #8b5cf6; border-radius: 0 12px 12px 0; display: none; font-size: 1.1em; color: #ede9fe; animation: fadeIn 0.5s; line-height: 1.7; border-top: 1px solid rgba(139, 92, 246, 0.2); border-right: 1px solid rgba(139, 92, 246, 0.2); border-bottom: 1px solid rgba(139, 92, 246, 0.2); }
+        .rationale strong { color: #c4b5fd; font-size: 1.15em; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 12px; border-bottom: 1px solid rgba(139, 92, 246, 0.3); padding-bottom: 6px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* NAVIGATION & PROGRESS */
+        .navigation { display: flex; justify-content: space-between; margin-top: 35px; gap: 15px; }
+        .nav-btn { flex: 1; background: #8b5cf6; color: #fff; border: none; padding: 18px; border-radius: 10px; font-size: 1.15em; cursor: pointer; transition: 0.3s; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+        .nav-btn:disabled { background: #1f2937; cursor: not-allowed; color: #4b5563; box-shadow: none; transform: none; }
+        
+        .progress-bar { width: 100%; background: #1f2937; height: 16px; border-radius: 8px; margin-bottom: 30px; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #8b5cf6); width: 0%; transition: width 0.3s linear; }
+        
+        /* RESULTS SCREEN */
+        #results-screen { display: none; background: #111827; padding: 40px 20px; border-radius: 16px; text-align: center; border: 1px solid #1f2937; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .final-score { font-size: 4.5em; color: #a78bfa; font-weight: 900; margin: 20px 0; text-shadow: 0 0 30px rgba(139, 92, 246, 0.3); }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: #070b14; padding: 15px; border-radius: 10px; border: 1px solid #1f2937; font-size: 1.2em; font-weight: bold; }
+        .stat-card span { display: block; font-size: 1.5em; margin-top: 5px; }
+        .s-att { color: #a78bfa; }
+        .s-unatt { color: #9ca3af; }
+        .s-corr { color: #10b981; }
+        .s-wrong { color: #ef4444; }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .header { padding: 25px 15px; margin-bottom: 20px; }
+            .header h1 { font-size: 1.5em; }
+            .header p { font-size: 0.9em; }
+            .dashboard { flex-direction: column; gap: 10px; font-size: 1.05em; padding: 15px; }
+            .stat-box { width: 100%; }
+            .question-container { padding: 25px 15px; margin-bottom: 15px; }
+            .q-text { font-size: 1.15em; margin-bottom: 20px; }
+            .options { gap: 10px; }
+            .option-btn { padding: 15px; font-size: 1em; }
+            .rationale { padding: 15px; font-size: 1em; margin-top: 20px; }
+            .navigation { margin-top: 25px; flex-direction: column-reverse; gap: 10px; }
+            .nav-btn { width: 100%; font-size: 1em; padding: 15px; }
+            .final-score { font-size: 3.5em; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Grand Masterclass (NORCET)</h1>
+        <p>100 Expert Scenarios (MSN, FON, Peds, OBG, Psych, Research, CHN) | 5 Sections (18m/sec) | 90 Mins Total</p>
+        
+        <div class="dashboard">
+            <div class="stat-box" id="section-display">Section: 1 / 5</div>
+            <div class="stat-box" id="q-counter">Q: 1 / 20</div>
+            <div class="stat-box timer-red" id="section-timer">Section Time: 18:00</div>
+            <div class="stat-box" id="total-timer">Total Time: 90:00</div>
+            <div class="stat-box">Score: <span id="score">0.00</span></div>
+        </div>
+    </div>
+    
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div id="quiz-body"></div>
+
+    <div id="results-screen">
+        <h2>NORCET Grand Simulation Concluded</h2>
+        <div class="final-score" id="final-score-display">0.00 / 100</div>
+        
+        <div class="stats-grid">
+            <div class="stat-card s-att">Attempted: <span id="stat-att">0</span></div>
+            <div class="stat-card s-unatt">Unattempted: <span id="stat-unatt">0</span></div>
+            <div class="stat-card s-corr">Correct: <span id="stat-corr">0</span></div>
+            <div class="stat-card s-wrong">Wrong: <span id="stat-wrong">0</span></div>
+        </div>
+        
+        <p style="font-size:1.1em; color:#cbd5e1; margin-bottom: 20px;">Exam auto-submitted. Review your clinical rationales to master all nursing specialties.</p>
+        <button class="nav-btn" onclick="location.reload()">Restart Exam</button>
+    </div>
+</div>
+
+<script>
+const rawQuestions = [
+    // --- SECTION 1: MSN & Fundamentals (Q1 - Q20) ---
+    {"q": "A patient with a traumatic brain injury is on a mechanical ventilator. The nurse notes a sudden Cushing's Triad. Which specific set of vital signs definitively represents this reflex, and what is its primary pathophysiological driver?", "o": ["Hypotension, bradycardia, and bradypnea driven by vagal nerve compression.", "Hypertension with a widening pulse pressure, bradycardia, and irregular respirations driven by massive intracranial pressure compromising brainstem perfusion.", "Hypotension, tachycardia, and tachypnea driven by medullary ischemia.", "Hypertension, tachycardia, and hyperpyrexia driven by hypothalamic damage."], "a": 1, "t": "MSN - Neuro / Critical Care", "e": "Cushing's Triad represents severe intracranial hypertension leading to brainstem compression, characterized by systolic hypertension (widening pulse pressure), bradycardia, and irregular respirations."},
+    {"q": "An RN receives a four-patient assignment on a medical-surgical unit. Which patient requires immediate, first-priority assessment?", "o": ["A postoperative patient with a Jackson-Pratt drain producing 40 mL of serosanguineous fluid in the last hour.", "A patient with type 1 diabetes whose blood glucose is 240 mg/dL and is asking for lunch.", "A patient with a long bone fracture who suddenly develops tachypnea, tachycardia, and a petechial rash across the chest.", "A patient with COPD whose oxygen saturation is 91% on 2L nasal cannula."], "a": 2, "t": "Fundamentals - Prioritization", "e": "Fat Embolism Syndrome (FES) is a life-threatening complication of long bone fractures characterized by respiratory distress, tachycardia, and a hallmark petechial rash (ABC emergency)."},
+    {"q": "A patient with severe acute pancreatitis has a serum calcium level of 6.8 mg/dL. The nurse inflates a blood pressure cuff above systolic pressure for 3 minutes and observes carpal spasm. What is this sign called, and what is the immediate pharmacological intervention?", "o": ["Chvostek's sign; administer oral Calcium Carbonate", "Trousseau's sign; administer IV Calcium Gluconate", "Kernig's sign; administer Magnesium Sulfate", "Brudzinski's sign; administer Potassium Chloride"], "a": 1, "t": "MSN - Endocrine / Electrolytes", "e": "Carpal spasm from cuff inflation is Trousseau's sign, indicating hypocalcemia. Acute symptomatic hypocalcemia is treated with IV Calcium Gluconate."},
+    {"q": "A patient with a spinal cord injury at T4 reports a severe, throbbing headache and nasal congestion. The blood pressure is 220/110 mmHg, and heart rate is 50 bpm. What is the nurse's absolute FIRST priority action?", "o": ["Administer sublingual Nifedipine to lower the blood pressure.", "Check for bladder distention or a kinked Foley catheter.", "Place the patient in a flat supine position.", "Perform a digital rectal examination for impaction."], "a": 1, "t": "MSN - Spinal Cord / Emergency", "e": "This is Autonomic Dysreflexia. The priority is to identify and resolve the triggering noxious stimulus—most commonly bladder distension or a blocked catheter."},
+    {"q": "A patient with DKA is receiving an insulin infusion. Initial labs show K+ of 3.1 mEq/L, blood glucose of 450 mg/dL, and pH of 7.15. What is the nurse's priority action before starting the insulin?", "o": ["Administer a 50% Dextrose bolus.", "Administer Sodium Bicarbonate IV.", "Hold insulin and notify the provider to order IV Potassium replacement first.", "Increase the rate of the normal saline infusion."], "a": 2, "t": "MSN - Endocrine Emergencies", "e": "Insulin drives potassium intracellularly. Given the hypokalemia (K+ 3.1), starting insulin now will precipitate lethal cardiac arrhythmias. Potassium must be repleted first."},
+    {"q": "A patient with cirrhosis has a Sengstaken-Blakemore tube placed for massive esophageal variceal bleeding. The patient suddenly develops acute respiratory distress and severe airway obstruction. What is the nurse's immediate action?", "o": ["Deflate the esophageal balloon.", "Cut the entire tube with scissors immediately to deflate all lumens.", "Advance the tube 5 cm further into the stomach.", "Administer IV Naloxone."], "a": 1, "t": "MSN - GI Emergencies", "e": "If the tube slips upward, the esophageal balloon can occlude the airway. The immediate life-saving action is to cut the tube with scissors to release all pressure and remove it."},
+    {"q": "A patient with a traumatic brain injury has an ICP of 24 mmHg and a blood pressure of 110/50 mmHg. Calculate the Cerebral Perfusion Pressure (CPP) and determine its clinical significance.", "o": ["CPP is 46 mmHg; brain tissue perfusion is inadequate and ischemic.", "CPP is 70 mmHg; cerebral perfusion is optimal.", "CPP is 30 mmHg; brain death has occurred.", "CPP is 85 mmHg; intracranial hypertension is resolved."], "a": 0, "t": "MSN - Neuro Hemodynamics", "e": "MAP = (110 + 2(50)) / 3 = 70 mmHg. CPP = MAP - ICP = 70 - 24 = 46 mmHg. Normal CPP is 60–100 mmHg (<60 indicates ischemia)."},
+    {"q": "A patient undergoing chemotherapy develops Tumor Lysis Syndrome (TLS). Which specific electrolyte and metabolic pattern characterizes this emergency?", "o": ["Hyperkalemia, Hypercalcemia, Hypophosphatemia, Hyperuricemia", "Hyperkalemia, Hypocalcemia, Hyperphosphatemia, Hyperuricemia", "Hypokalemia, Hypercalcemia, Hyperphosphatemia, Hypouricemia", "Hyperkalemia, Hypomagnesemia, Hypercalcemia, Hypouricemia"], "a": 1, "t": "MSN - Oncology", "e": "TLS results in High Potassium, High Phosphorus, High Uric Acid, and Secondary Hypocalcemia due to calcium-phosphate binding."},
+    {"q": "A patient in septic shock is receiving Norepinephrine via a peripheral IV line. The nurse notes the site is pale, cool, and swollen. After stopping the infusion, what is the specific antidote that must be infiltrated into the tissue?", "o": ["Protamine Sulfate", "Phentolamine (Regitine)", "Sodium Bicarbonate", "Flumazenil"], "a": 1, "t": "MSN - Pharmacology / Shock", "e": "Norepinephrine extravasation causes alpha-1 vasoconstriction and necrosis. Phentolamine is an alpha-blocker injected locally to vasodilate and save tissue."},
+    {"q": "A patient with Myasthenia Gravis is brought to the ED in severe respiratory distress. The provider administers Edrophonium (Tensilon). The patient's muscle weakness significantly worsens and they exhibit excessive salivation and bradycardia. What crisis is this, and what is the antidote?", "o": ["Myasthenic crisis; administer Neostigmine", "Cholinergic crisis; administer Atropine Sulfate", "Cholinergic crisis; administer Edrophonium", "Myasthenic crisis; administer Pyridostigmine"], "a": 1, "t": "MSN - Neurology / Pharmacology", "e": "Worsening weakness with Edrophonium indicates a Cholinergic Crisis (acetylcholine excess). The antidote is Atropine Sulfate."},
+    {"q": "A patient suffers an electrical burn with deep muscle destruction. The nurse notes dark, tea-colored urine. What is the priority nursing intervention?", "o": ["Restrict fluid intake to prevent pulmonary edema.", "Administer potassium-sparing diuretics.", "Aggressively hydrate the patient to maintain a high urine output (75–100 mL/hr) to flush myoglobin.", "Apply cold compresses to the burned muscle beds."], "a": 2, "t": "MSN - Burns", "e": "Electrical burns release myoglobin, causing Acute Tubular Necrosis (ATN). Aggressive hydration targeting urine output of 75–100 mL/hr is vital."},
+    {"q": "A patient presents with Beck's triad: hypotension, muffled heart sounds, and jugular venous distention (JVD), along with a CVP of 19 mmHg. What is the immediate, definitive procedural intervention?", "o": ["Emergency Pericardiocentesis", "Insertion of a Transvenous Pacemaker", "Emergency Thoracotomy", "Administration of high-dose Vasopressors"], "a": 0, "t": "MSN - Critical Care / Cardiac", "e": "Beck's triad and high CVP indicate Cardiac Tamponade. Fluid in the pericardial sac prevents ventricular filling. Needle aspiration (pericardiocentesis) is life-saving."},
+    {"q": "Which patient condition represents an ABSOLUTE contraindication for intravenous thrombolytic therapy (tPA) in acute ischemic stroke?", "o": ["Blood pressure of 165/95 mmHg", "History of mild ischemic stroke 3 years ago", "Major abdominal surgery 7 days ago", "Blood glucose of 180 mg/dL"], "a": 2, "t": "MSN - Neurology / Pharmacology", "e": "Recent major surgery within 14 days is an absolute contraindication for tPA due to severe surgical site hemorrhage risk."},
+    {"q": "A patient with a temporary transvenous pacemaker shows pacing spikes that are NOT followed by QRS complexes (failure to capture). What is the immediate nurse-managed device adjustment?", "o": ["Increase the sensitivity threshold (mV)", "Decrease the milliamperage (mA) output", "Increase the milliamperage (mA) output until capture is achieved", "Turn off the pacemaker generator"], "a": 2, "t": "MSN - Critical Care / Devices", "e": "Failure to capture means the electrical spike is not strong enough to depolarize the heart. Increasing current output (mA) achieves capture."},
+    {"q": "A patient with end-stage renal disease takes Sevelamer hydrochloride. What is the precise therapeutic intent of this medication?", "o": ["Lower serum potassium by exchanging sodium in the bowel", "Bind dietary phosphate in the gut to prevent hyperphosphatemia", "Stimulate bone marrow erythropoiesis", "Reduce systemic blood pressure by blocking calcium channels"], "a": 1, "t": "MSN - Renal Pharmacology", "e": "Sevelamer is a phosphate binder that binds dietary phosphate in the GI tract to prevent hyperphosphatemia in ESRD."},
+    {"q": "A patient presents with acute thoracic aortic dissection. Blood pressure is 210/110 mmHg and heart rate is 115 bpm. What is the absolute FIRST pharmacological priority?", "o": ["Administer IV Nitroprusside to drop blood pressure instantly", "Administer IV Esmolol or Labetalol to reduce heart rate and dP/dt (force of contraction)", "Administer sublingual Nitroglycerin", "Administer IV Heparin bolus"], "a": 1, "t": "MSN - Vascular Emergencies", "e": "Shear stress (dP/dt) propagates an aortic dissection. Lowering HR and contractility with a beta-blocker MUST precede vasodilator therapy to prevent reflex tachycardia and rupture."},
+    {"q": "A patient in Thyroid Storm is prescribed Propylthiouracil (PTU), Lugol's iodine, and Propranolol. Why must Lugol's iodine be administered at least 1 hour AFTER the PTU dose?", "o": ["To prevent iodine from neutralizing the beta-blocker", "To prevent the thyroid gland from utilizing the iodine to synthesize and release even more thyroid hormone", "To enhance the gastrointestinal absorption of PTU", "Iodine must be given 1 hour before PTU, not after"], "a": 1, "t": "MSN - Endocrine Emergencies", "e": "PTU blocks synthesis. If iodine is given first, the gland can use it to synthesize more hormone before release is blocked, worsening the storm."},
+    {"q": "A patient with Diabetes Insipidus (DI) is given Desmopressin (DDAVP). Which laboratory and clinical findings indicate successful therapeutic response?", "o": ["Decreased urine output, increased urine specific gravity, and normalized serum sodium", "Increased urine output, decreased urine specific gravity, and hypernatremia", "Weight loss, hypotension, and high serum osmolality", "Glycosuria and ketonuria"], "a": 0, "t": "MSN - Endocrine", "e": "Desmopressin acts as synthetic ADH, concentrating urine, reducing output, and correcting hypernatremia in DI."},
+    {"q": "A patient with a tibial fracture develops severe, unremitting pain not relieved by narcotics, alongside diminished distal pulses and pallor. The nurse recognizes Compartment Syndrome. Which position for the limb is strictly contraindicated?",
+    "o": ["Elevating the extremity above the level of the heart", "Keeping the extremity flat at heart level", "Removing all constrictive casts or dressings", "Applying cold packs"], "a": 0, "t": "MSN - Orthopedics", "e": "Elevating a limb with compartment syndrome further compromises arterial inflow and worsens ischemia. Keep flat at heart level."},
+    {"q": "Which hemodynamic parameter is the hallmark defining feature of early distributive (septic) shock?", "o": ["High SVR, Low Cardiac Output", "Low SVR, High Cardiac Output", "High SVR, High Cardiac Output", "Low SVR, Low Cardiac Output"], "a": 1, "t": "MSN - Critical Care / Shock", "e": "Early septic shock features systemic vasodilation (low SVR). The heart compensates by beating faster and harder, resulting in high Cardiac Output."},
+
+    // --- SECTION 2: Pediatrics (Q21 - Q40) ---
+    {"q": "An infant with Tetralogy of Fallot suddenly develops a hypercyanotic spell ('Tet spell') while crying. What is the immediate priority nursing intervention?", "o": ["Administer high-flow oxygen via non-rebreather mask and place the infant in a knee-chest position.", "Perform immediate chest compressions and defibrillation.", "Administer IV atropine to treat severe bradycardia.", "Position the infant flat in a supine position and apply a warm blanket."], "a": 0, "t": "Pediatrics - Cardiology", "e": "Knee-chest position increases Systemic Vascular Resistance (SVR), forcing blood through the stenotic pulmonary valve instead of the VSD. Oxygen helps alleviate hypoxia."},
+    {"q": "A 3-week-old infant is brought to the clinic with non-bilious projectile vomiting immediately after feeding, persistent hunger, and an olive-shaped mass palpable in the epigastric region. Which acid-base imbalance is this infant at highest risk for developing?", "o": ["Respiratory Acidosis", "Metabolic Acidosis", "Metabolic Alkalosis", "Respiratory Alkalosis"], "a": 2, "t": "Pediatrics - Gastrointestinal", "e": "Pyloric stenosis causes loss of gastric HCl and potassium through projectile vomiting, leading to hypochloremic metabolic alkalosis."},
+    {"q": "An 8-month-old infant presents with sudden, intermittent episodes of severe colicky abdominal pain, drawing the legs up to the abdomen, and passing stool mixed with blood and mucus ('currant jelly' stools). What is the definitive diagnostic and therapeutic non-surgical procedure?", "o": ["Diagnostic exploratory laparoscopy", "Air enema or hydrostatic (saline) enema under fluoroscopy", "Immediate barium swallow study", "Colonoscopy with biopsy"], "a": 1, "t": "Pediatrics - Gastrointestinal", "e": "Intussusception is successfully reduced without surgery using an air or hydrostatic enema under fluoroscopy."},
+    {"q": "A newborn infant fails to pass meconium within 48 hours of birth, exhibits abdominal distension, and vomits bilious fluid. Rectal examination reveals an explosive expulsion of gas and stool (squirt sign). What congenital condition is suspected?", "o": ["Necrotizing Enterocolitis (NEC)", "Hirschsprung's Disease (Congenital Aganglionic Megacolon)", "Pyloric Stenosis", "Esophageal Atresia"], "a": 1, "t": "Pediatrics - Gastrointestinal", "e": "Hirschsprung's disease involves absence of ganglion cells in the distal colon, causing lack of peristalsis and bowel obstruction."},
+    {"q": "A toddler is brought to the ED with a high fever, severe sore throat, drooling, leaning forward in a tripod position, and muffled 'hot potato' voice. The nurse suspects Epiglottitis. What is the most critical nursing precaution?", "o": ["Examine the throat immediately using a tongue depressor to inspect the epiglottis.", "Keep the child calm, avoid invasive procedures or throat inspection, and ensure emergency intubation equipment is at the bedside.", "Administer oral cough syrups immediately.", "Place the child in a flat supine position."], "a": 1, "t": "Pediatrics - Respiratory Emergencies", "e": "Throat inspection can trigger total laryngospasm and complete airway obstruction in epiglottitis. Keep child calm and ready for intubation."},
+    {"q": "An 2-year-old child with severe dehydration is receiving an IV fluid bolus. Which clinical finding best indicates that the fluid resuscitation has been successful and tissue perfusion is restored?", "o": ["Heart rate drops from 160 to 110 bpm, and urine output reaches 1–2 mL/kg/hr", "Anterior fontanelle remains visibly sunken", "Blood pressure drops below the 50th percentile for age", "Capillary refill time remains prolonged at 4 seconds"], "a": 0, "t": "Pediatrics - Fluid & Electrolytes", "e": "Normalization of heart rate and adequate urine output (1–2 mL/kg/hr) are prime indicators of restored pediatric tissue perfusion."},
+    {"q": "A newborn is noted to have coarse facial features, a large protruding tongue, a umbilical hernia, prolonged neonatal jaundice, and profound lethargy. Which congenital disorder does this clinical presentation suggest?", "o": ["Congenital Hypothyroidism", "Down Syndrome", "Phenylketonuria (PKU)", "Galactosemia"], "a": 0, "t": "Pediatrics - Endocrine", "e": "Congenital hypothyroidism presents with lethargy, hypotonia, large tongue, and umbilical hernia. Early treatment with Levothyroxine prevents cognitive delay."},
+    {"q": "A pediatric patient with Nephrotic Syndrome is admitted with severe generalized edema (anasarca). Which set of classic laboratory findings confirms this diagnosis?", "o": ["Proteinuria (>3.5g/day), Hypoalbuminemia, and Hyperlipidemia", "Hematuria, Hypertension, and Elevated BUN/Creatinine", "Proteinuria, Hyperalbuminemia, and Hypolipidemia", "Glycosuria, Ketonuria, and Metabolic Acidosis"], "a": 0, "t": "Pediatrics - Renal", "e": "Nephrotic syndrome is characterized by heavy proteinuria, hypoalbuminemia, and hyperlipidemia resulting in generalized edema."},
+    {"q": "A child is diagnosed with Acute Glomerulonephritis (AGN) following a recent streptococcal throat infection. What is the classic presentation of urine output and appearance?", "o": ["Polyuria with clear, colorless urine", "Oliguria with smoky, brownish, 'cola-colored' or tea-colored urine (hematuria)", "Frank bright red bleeding with severe dysuria", "Foamy, frothy urine containing massive lipids"], "a": 1, "t": "Pediatrics - Renal", "e": "AGN causes glomerular inflammation leading to oliguria and hematuria, giving urine a smoky tea/cola color."},
+    {"q": "A 3-year-old child has a firm, smooth, unilateral abdominal mass that does not cross the midline, discovered during a routine bath. The nurse notes a prominent warning sign above the bed: 'DO NOT PALPATE ABDOMEN'. Why is this restriction critical?", "o": ["Palpation can cause severe pain and trigger vomiting", "Palpation can rupture the tumor capsule, releasing malignant cells and spreading Wilms Tumor (Nephroblastoma)", "Palpation will cause immediate renal failure", "Palpation can rupture the spleen"], "a": 1, "t": "Pediatrics - Oncology", "e": "Wilms Tumor capsules are fragile; palpation can rupture the tumor, seeding malignant cells into the peritoneal cavity."},
+    {"q": "An infant presents with leukocoria (an abnormal white pupillary reflex or 'cat's eye reflex') in place of the normal red reflex. What malignancy is suspected?", "o": ["Neuroblastoma", "Medulloblastoma", "Retinoblastoma", "Ewing Sarcoma"], "a": 2, "t": "Pediatrics - Oncology", "e": "Leukocoria is the classic sign of Retinoblastoma, an intraocular malignant tumor arising from the retina in childhood."},
+    {"q": "A newborn infant undergoes surgical repair of a cleft lip. Which post-operative nursing intervention is essential to protect the surgical suture line?", "o": ["Position the infant prone immediately after feeding", "Apply elbow restraints (freedom splints) to prevent the infant from touching or scratching the lip", "Use suction catheters routinely every hour to clear oral secretions", "Feed the infant using a hard plastic spoon"], "a": 1, "t": "Pediatrics - Surgical / Post-op", "e": "Elbow restraints prevent infants from bringing hands to the face and disrupting the delicate cleft lip suture line."},
+    {"q": "During a routine newborn assessment, the nurse performs the Ortolani and Barlow maneuvers. A positive click or clunk is felt, indicating femoral head dislocation from the acetabulum. What condition does this signify?", "o": ["Congenital Clubfoot (Talipes Equinovarus)", "Developmental Dysplasia of the Hip (DDH)", "Legg-Calve-Perthes Disease", "Slipped Capital Femoral Epiphysis"], "a": 1, "t": "Pediatrics - Orthopedics", "e": "The Ortolani and Barlow maneuvers detect Developmental Dysplasia of the Hip (DDH) via a characteristic clunk."},
+    {"q": "A child is brought in with a 6-day history of high fever unresponsive to antibiotics, bilateral non-purulent conjunctivitis, strawberry tongue, erythematous cracked lips, and peeling skin on the fingers. What diagnosis does this constellation support?", "o": ["Scarlet Fever", "Rheumatic Fever", "Kawasaki Disease", "Measles"], "a": 2, "t": "Pediatrics - Immunology / Vascular", "e": "Kawasaki Disease is systemic vasculitis. Diagnostic criteria include fever \u22655 days plus mucosal/extremity changes. IVIG and Aspirin prevent coronary aneurysms."},
+    {"q": "A child presents with a maculopapular rash that starts on the face and spreads downward, accompanied by tiny white spots with bluish-white centers on the buccal mucosa (Koplik spots). What disease is this?", "o": ["Varicella (Chickenpox)", "Rubeola (Measles)", "Rubella (German Measles)", "Erythema Infectiosum (Fifth Disease)"], "a": 1, "t": "Pediatrics - Infectious Disease", "e": "Koplik spots are pathognomonic for Rubeola (Measles)."},
+    {"q": "At 1 minute after birth, a newborn has a heart rate of 130 bpm, cries vigorously and pulls away to stimulation, has a pink body with blue extremities (acrocyanosis), and moves all extremities actively with good flexion. What is the correct APGAR score?", "o": ["7", "8", "9", "10"], "a": 2, "t": "Pediatrics - Neonatal Assessment", "e": "HR >100 (2) + Cry/pull away (2) + Acrocyanosis (1) + Active movement (2) + Vigorous cry (2) = 9."},
+    {"q": "A newborn undergoing phototherapy for hyperbilirubinemia requires specific nursing care to prevent complications. Which action is mandatory?", "o": ["Apply petroleum jelly generously over the infant's skin", "Cover the infant's eyes with opaque patches to prevent retinal damage, and monitor hydration status closely", "Keep the infant completely swaddled in heavy blankets to maintain core temperature", "Stop all formula feedings and provide only intravenous D5W"], "a": 1, "t": "Pediatrics - Neonatal Care", "e": "Phototherapy light requires eye protection to prevent retinal damage, and hydration must be monitored due to increased insensible water loss."},
+    {"q": "A 6-month-old infant is brought to the clinic for a well-child check. Which developmental milestone should the nurse expect the infant to have achieved?", "o": ["Walking independently", "Sitting unsupported and transferring objects from hand to hand", "Saying 3 to 5 words with clear meaning", "Building a tower of two blocks"], "a": 1, "t": "Pediatrics - Growth & Development", "e": "By 6 months, infants sit unsupported and transfer objects hand-to-hand."},
+    {"q": "A child is diagnosed with Celiac Disease. Which dietary restriction must the nurse emphasize to the parents?", "o": ["Strict elimination of gluten (Wheat, Barley, Rye, Oats)", "Elimination of all dairy products and lactose", "Avoidance of simple sugars and high-fructose corn syrup", "Restriction of purine-rich proteins"], "a": 0, "t": "Pediatrics - Gastrointestinal / Nutrition", "e": "Celiac disease requires lifelong strict adherence to a gluten-free diet (avoiding wheat, barley, rye, and contaminated oats)."},
+    {"q": "A school-aged child with Type 1 Diabetes mellitus is brought to the ED lethargic and breathing deeply and rapidly. Blood glucose is 580 mg/dL, and urine tests positive for ketones. What type of breathing is the nurse observing?", "o": ["Cheyne-Stokes respirations", "Kussmaul respirations", "Biot's respirations", "Apustic respirations"], "a": 1, "t": "Pediatrics - Endocrine Emergencies", "e": "Kussmaul respirations compensate for severe metabolic acidosis in DKA by blowing off CO2."},
+
+    // --- SECTION 3: OBG & Gynaecology (Q41 - Q60) ---
+    {"q": "A pregnant woman at 32 weeks gestation presents with sudden, painless vaginal bleeding of bright red blood. The uterus is soft, non-tender, and fetal heart tones are reassuring. What condition does this clinical picture indicate?", "o": ["Abruptio Placentae", "Placenta Previa", "Uterine Rupture", "Vasa Previa"], "a": 1, "t": "OBG - Antepartum Complications", "e": "Placenta Previa involves abnormal placental implantation over the cervical os, presenting with sudden, painless, bright red bleeding in the third trimester."},
+    {"q": "A patient at 36 weeks gestation presents with severe abdominal pain, a rigid, 'board-like' uterus, and dark red vaginal bleeding. Fetal heart monitoring shows late decelerations. What is the immediate nursing priority?", "o": ["Perform a digital vaginal examination to assess cervical dilation.", "Prepare for emergency Cesarean delivery while administering oxygen and establishing large-bore IV access.", "Administer oxytocin to stimulate uterine contractions for rapid vaginal delivery.", "Place the patient in a flat supine position."], "a": 1, "t": "OBG - Antepartum Emergencies", "e": "Abruptio Placentae presents with painful dark bleeding and a rigid uterus. Digital exams are strictly contraindicated. Immediate C-section is often required."},
+    {"q": "A patient with severe preeclampsia is receiving an intravenous Magnesium Sulfate infusion. The nurse assesses the patient and notes a respiratory rate of 8 breaths/min, absent deep tendon reflexes, and urine output of 15 mL/hr. What is the immediate, life-saving nursing action?", "o": ["Increase the magnesium infusion rate to prevent eclamptic seizures.", "Stop the Magnesium Sulfate infusion immediately and prepare to administer IV Calcium Gluconate.", "Administer IV Furosemide to stimulate renal output.", "Place the patient in the Trendelenburg position."], "a": 1, "t": "OBG - Pharmacology / Complications", "e": "Signs of magnesium toxicity include loss of DTRs, respiratory depression (<12), and oliguria. Stop infusion instantly and give Calcium Gluconate."},
+    {"q": "During the second stage of labor, the fetal head delivers, but then retracts tightly against the perineum (turtle sign). The nurse recognizes Shoulder Dystocia. What is the immediate nursing maneuver to perform?", "o": ["Apply heavy fundal pressure to push the baby out.", "Perform the McRoberts maneuver (hyperflexing the mother's legs tightly to her abdomen) and apply suprapubic pressure.", "Place the mother in the Trendelenburg position.", "Prepare for an emergency hysterectomy."], "a": 1, "t": "OBG - Intrapartum Emergencies", "e": "Shoulder dystocia requires McRoberts maneuver and suprapubic pressure. Fundal pressure is strictly contraindicated."},
+    {"q": "A laboring patient's external fetal monitor shows uniform decelerations that mirror the uterine contractions—onset, nadir, and recovery coincide with the beginning, peak, and end of the contraction. What is the underlying cause?", "o": ["Umbilical cord compression", "Uteroplacental insufficiency", "Head compression", "Fetal hypoxia"], "a": 2, "t": "OBG - Fetal Monitoring", "e": "Early decelerations mirror contractions and are caused by benign fetal head compression."},
+    {"q": "A laboring patient's monitor shows late decelerations, where the deceleration begins *after* the contraction starts and lowest point (nadir) occurs *after* the peak of the contraction. What is the priority nursing intervention?", "o": ["Document the finding as a normal variant.", "Reposition the mother to the left lateral position, administer 10L oxygen via non-rebreather, stop oxytocin if running, and notify the provider.", "Prepare for immediate vaginal delivery without intervention.", "Massage the mother's abdomen."], "a": 1, "t": "OBG - Intrapartum Complications", "e": "Late decelerations indicate uteroplacental insufficiency. Actions: left lateral position, IV fluids, oxygen, and discontinue oxytocin."},
+    {"q": "A pregnant woman at 10 weeks gestation presents with severe, intractable nausea and vomiting, weight loss exceeding 5% of pre-pregnancy weight, ketonuria, and electrolyte imbalances. What diagnosis is established?", "o": ["Hyperemesis Gravidarum", "Preeclampsia", "Normal morning sickness", "Echogenic bowel syndrome"], "a": 0, "t": "OBG - Early Pregnancy Complications", "e": "Hyperemesis Gravidarum involves severe vomiting, starvation ketosis, and dehydration requiring admission."},
+    {"q": "A postpartum patient 2 hours following a vaginal delivery has a saturated perineal pad every 15 minutes, a boggy uterus located above the umbilicus and displaced to the right, and blood pressure of 90/50 mmHg. What is the immediate nursing action?", "o": ["Massage the boggy uterus firmly and assist the patient to empty her urinary bladder.", "Administer Methylergonovine IM immediately without assessment.", "Prepare for emergency blood transfusion.", "Check for retained placental fragments."], "a": 0, "t": "OBG - Postpartum Hemorrhage", "e": "A boggy uterus indicates uterine atony. A displaced uterus points to a distended bladder. Massage the uterus and assist the patient to void."},
+    {"q": "A pregnant woman at 28 weeks gestation is Rh-negative, and her indirect Coombs test is negative. What is the correct nursing and medical management plan?", "o": ["Administer RhoGAM immediately and repeat at 36 weeks.", "Administer RhoGAM at 28 weeks gestation and again within 72 hours postpartum if the newborn is Rh-positive.", "No action is needed until delivery.", "Administer Rh immunoglobulin only if she develops bleeding."], "a": 1, "t": "OBG - Prenatal Care / Immunology", "e": "Rh-negative unimmunized mothers receive RhoGAM at 28 weeks and postpartum if infant is Rh-positive."},
+    {"q": "A pregnant patient undergoes a non-stress test (NST) at 38 weeks gestation. The baseline is 140 bpm, and over 20 minutes, there are two accelerations of 15 bpm lasting 15 seconds each, associated with fetal movement. How is this NST interpreted?", "o": ["Non-reactive; indicative of fetal hypoxia", "Reactive; normal and reassuring", "Sinusoidal; indicative of severe fetal anemia", "Unsatisfactory due to insufficient tracing time"], "a": 1, "t": "OBG - Fetal Assessment", "e": "A reactive NST requires at least two accelerations of 15 bpm lasting 15 seconds within 20 minutes."},
+    {"q": "A patient at 37 weeks gestation is evaluated for labor induction. The Bishop score is calculated. Which factors make up the 5 components of the Bishop score?", "o": ["Maternal age, parity, weight gain, blood pressure, and fetal station", "Cervical dilation, effacement, station, consistency, and position", "Fetal heart rate, amniotic fluid volume, placental grade, and cervical length", "Uterine contraction frequency, intensity, duration, and resting tone"], "a": 1, "t": "OBG - Labor Induction", "e": "Bishop score components: dilation, effacement, station, consistency, and position."},
+    {"q": "A woman presents at 8 weeks gestation with dark brown vaginal bleeding ('prune juice' appearance), uterus significantly larger than expected for gestational dates, severe hyperemesis, and markedly elevated hCG levels without fetal heart tones on ultrasound. What condition is suspected?", "o": ["Ectopic Pregnancy", "Hydatidiform Mole (Molar Pregnancy)", "Missed Abortion", "Placenta Previa"], "a": 1, "t": "OBG - Gestational Trophoblastic Disease", "e": "Hydatidiform mole features extreme hCG, snowstorm ultrasound, and absence of fetal parts."},
+    {"q": "A postpartum patient on day 4 post-delivery reports chills, lower abdominal pain, and foul-smelling, purulent lochia. Temperature is 101.5°F (38.6°C). What condition does this indicate?", "o": ["Postpartum blues", "Postpartum Endometritis (Metritis)", "Normal lochia serosa transition", "Mastitis"], "a": 1, "t": "OBG - Postpartum Infections", "e": "Fever, uterine tenderness, and foul lochia indicate Postpartum Endometritis."},
+    {"q": "A breastfeeding mother at 3 weeks postpartum presents with a localized, painful, erythematous, wedge-shaped area on her right breast, accompanied by fever and chills. What is the priority management?", "o": ["Immediately discontinue breastfeeding from both breasts and pump and dump.", "Apply tight breast binders to suppress milk production.", "Continue frequent breastfeeding (or pumping), apply warm compresses, ensure proper latch, and prescribe antibiotics (e.g., Dicloxacillin).", "Incis and drain the breast abscess immediately."], "a": 2, "t": "OBG - Postpartum Complications", "e": "Mastitis requires frequent breast emptying (continued nursing/pumping), antibiotics, and warm compresses."},
+    {"q": "A patient at 7 weeks gestation presents with unilateral sharp pelvic pain, delayed menses, and minor dark vaginal spotting. Suddenly, she develops excruciating sharp lower abdominal pain radiating to her right shoulder. What emergency has occurred?", "o": ["Appendicitis", "Ruptured Ectopic Pregnancy", "Ovarian Torsion", "Spontaneous Miscarriage"], "a": 1, "t": "OBG - Ectopic Pregnancy", "e": "Shoulder pain indicates intraperitoneal bleeding and diaphragmatic irritation from a ruptured ectopic pregnancy."},
+    {"q": "A laboring patient receives an epidural block for pain management. Shortly after placement, the nurse notes the mother's blood pressure drops from 120/80 to 80/40 mmHg, and the fetal monitor shows late decelerations. What is the immediate priority nursing action?", "o": ["Administer IV Epinephrine immediately.", "Place the mother in a lateral tilt/displacement position, administer an IV fluid bolus, and give oxygen.", "Remove the epidural catheter immediately.", "Lower the head of the bed into Trendelenburg position."], "a": 1, "t": "OBG - Obstetric Anesthesia", "e": "Sympathetic blockade from epidural anesthesia causes maternal hypotension. Interventions: left lateral tilt, fluid bolus, and oxygen."},
+    {"q": "What is the physiological hallmark that distinguishes true labor contractions from false labor (Braxton Hicks) contractions?", "o": ["True contractions cause pain in the abdomen; false contractions cause pain in the back.", "True contractions cause progressive cervical dilation and effacement; false contractions do not produce cervical changes.", "True contractions stop when the mother walks around; false contractions get stronger with walking.", "True contractions occur at irregular intervals."], "a": 1, "t": "OBG - Labor Physiology", "e": "True labor features contractions that result in progressive cervical dilation and effacement."},
+    {"q": "A postpartum client who delivered 6 hours ago has a boggy uterus and heavy bleeding. The provider orders Methylergonovine (Methergine) IM. What is a strict medical contraindication for administering this drug?", "o": ["History of gestational diabetes", "Pre-existing or chronic Hypertension", "A history of postpartum depression", "Multiparity"], "a": 1, "t": "OBG - Postpartum Pharmacology", "e": "Methylergonovine is a potent vasoconstrictor strictly contraindicated in chronic hypertension due to risk of stroke/hypertensive crisis."},
+    {"q": "During a sterile speculum exam on a patient with third-trimester bleeding, the nurse notes the provider immediately stops the exam and orders an ultrasound before proceeding. Why was the digital vaginal examination avoided?", "o": ["To prevent introducing a vaginal infection", "Because digital examination in the presence of Placenta Previa can violently disrupt the placenta, causing catastrophic, life-threatening maternal hemorrhage", "Because the cervix is fully dilated", "Digital exams are never contraindicated in pregnancy"], "a": 1, "t": "OBG - Antepartum Safety", "e": "Digital vaginal exams in placenta previa can puncture the placenta, causing massive hemorrhage."},
+    {"q": "A pregnant woman at 24 weeks gestation undergoes a 1-hour Oral Glucose Tolerance Test (OGTT) and scores 145 mg/dL. What is the mandatory next step in management?", "o": ["Diagnose Gestational Diabetes immediately and start insulin.", "Perform a 3-hour diagnostic Oral Glucose Tolerance Test (OGTT) for definitive confirmation.", "Re-test the 1-hour OGTT in the third trimester.", "Advise strict carbohydrate elimination."], "a": 1, "t": "OBG - Gestational Diabetes", "e": "An abnormal 1-hour OGTT screen (\u2265130/140) requires a confirmatory 3-hour diagnostic OGTT."},
+
+    // --- SECTION 4: Psychiatric Nursing (Q61 - Q80) ---
+    {"q": "A patient with schizophrenia is admitted to the psychiatric unit. They report hearing voices commanding them to 'harm the nurse' and exhibit flat affect and social withdrawal. How should the nurse correctly categorize these symptoms?", "o": ["Auditory hallucinations and delusions are negative symptoms; flat affect is a positive symptom.", "Auditory hallucinations and command hallucinations are positive symptoms; flat affect and social withdrawal are negative symptoms.", "All symptoms described are positive symptoms.", "All symptoms described are negative symptoms."], "a": 1, "t": "Psychiatry - Schizophrenia", "e": "Positive symptoms represent an excess of normal functions (hallucinations). Negative symptoms represent a deficit (flat affect, withdrawal)."},
+    {"q": "A patient with Bipolar I Disorder is prescribed Lithium Carbonate. The patient's serum lithium level is 1.8 mEq/L. The nurse observes coarse hand tremors, ataxia, confusion, and sluggishness. How do these findings correlate with this lab result?", "o": ["This is a therapeutic serum level; no action is needed.", "This indicates moderate-to-severe lithium toxicity, as the therapeutic window is strictly 0.6–1.2 mEq/L.", "This indicates subtherapeutic levels; the dose must be increased.", "This is a normal finding during the maintenance phase."], "a": 1, "t": "Psychiatry - Psychopharmacology", "e": "Therapeutic lithium range is 0.6–1.2 mEq/L. Levels above 1.5 mEq/L indicate toxicity (coarse tremors, ataxia, confusion)."},
+    {"q": "A patient taking Haloperidol (a typical antipsychotic) for 5 days suddenly develops a high fever (104°F), severe muscle rigidity ('lead-pipe rigidity'), labile blood pressure, diaphoresis, and altered mental status. What is this life-threatening emergency?", "o": ["Serotonin Syndrome", "Malignant Hyperthermia", "Neuroleptic Malignant Syndrome (NMS)", "Extrapyramidal Symptoms (Acute Dystonia)"], "a": 2, "t": "Psychiatry - Adverse Drug Reactions", "e": "NMS is characterized by hyperpyrexia, lead-pipe rigidity, autonomic instability, and encephalopathy."},
+    {"q": "A patient with Major Depressive Disorder has been taking an SSRI (Fluoxetine) for 3 weeks and recently added an MAOI (Phenelzine) without a washout period. They present with agitation, myoclonus, hyperreflexia, diaphoresis, and shivering. What condition has occurred?", "o": ["Neuroleptic Malignant Syndrome", "Serotonin Syndrome", "Lithium Toxicity", "Hypertensive Crisis"], "a": 1, "t": "Psychiatry - Psychopharmacology", "e": "Serotonin Syndrome occurs from combining serotonergic agents, causing neuromuscular hyperactivity and autonomic instability."},
+    {"q": "A patient with severe anxiety pacing the hallway suddenly stops, clutches their chest, and gasps, 'I am having a heart attack! I am going to die!' The nurse assesses vitals and finds HR 130 bpm, BP 150/90, RR 30 bpm. Cardiac workup in the ED is completely negative. What is the priority nursing intervention?", "o": ["Leave the patient alone in a quiet room to calm down.", "Stay with the patient, maintain a calm, reassuring demeanor, use short, simple sentences, and encourage slow breathing.", "Administer high-dose antipsychotics.", "Routinely restrain the patient to prevent injury."], "a": 1, "t": "Psychiatry - Anxiety Disorders", "e": "Never leave a patient having a panic attack alone. Stay with them, keep calm, speak simply, and help regulate breathing."},
+    {"q": "A patient with Obsessive-Compulsive Disorder (OCD) spends hours washing their hands until they bleed, driven by intrusive thoughts of contamination. What is the most appropriate initial nursing management regarding their ritual during the acute phase?", "o": ["Immediately forbid the patient from washing their hands to break the habit.", "Allow the patient to perform the ritual while gradually setting limits and structuring time, supporting them with cognitive-behavioral techniques like exposure and response prevention.", "Provide antiseptic soap and encourage frequent washing to prevent infection.", "Punish the patient when they wash their hands."], "a": 1, "t": "Psychiatry - Anxiety & OCD", "e": "Abruptly stopping rituals causes severe anxiety. Allow time for the ritual initially while gradually setting limits and structuring the day."},
+    {"q": "A patient with anorexia nervosa is admitted with a BMI of 13, severe bradycardia (HR 42 bpm), and hypokalemia. The nurse initiates refeeding. Within 48 hours, the patient develops peripheral edema, crackles in the lungs, and sudden confusion. What life-threatening shift has occurred?", "o": ["Refeeding Syndrome", "Thyroid Storm", "Adrenal Crisis", "Water Intoxication"], "a": 0, "t": "Psychiatry - Eating Disorders", "e": "Refeeding syndrome occurs when malnourished patients are fed too quickly, causing intracellular shifts of phosphorus, potassium, and magnesium, leading to heart failure."},
+    {"q": "A patient with Paranoid Schizophrenia refuses to eat hospital food, stating, 'The nurses are trying to poison me with arsenic in the soup.' What is the nurse's best therapeutic response?", "o": ["'That is ridiculous; nobody is trying to poison you.'", "'Why do you think the nurses want to harm you?'", "'I understand you believe the food is poisoned, but I can assure you the food is safe. Here is a sealed can of soup and pre-packaged crackers.'", "'If you don't eat this food, we will place a nasogastric feeding tube.'"], "a": 2, "t": "Psychiatry - Therapeutic Communication", "e": "Do not validate delusions, but offer tamper-proof, pre-packaged food to build trust without arguing."},
+    {"q": "A patient diagnosed with Antisocial Personality Disorder manipulates staff, breaks unit rules, and shows a complete lack of remorse after stealing another patient's belongings. What is the foundational nursing approach for managing this patient?", "o": ["Provide continuous sympathy and unconditional emotional support to heal their inner child.", "Establish clear, firm, and consistent boundaries and unit limits, enforcing natural consequences for negative behaviors collaboratively with the multidisciplinary team.", "Isolate the patient in a locked seclusion room indefinitely.", "Ignore all rule-breaking behaviors to avoid rewarding them with attention."], "a": 1, "t": "Psychiatry - Personality Disorders", "e": "Manage manipulative behavior with strict, consistent boundaries and enforcement of unit rules across all staff."},
+    {"q": "A patient with a history of chronic alcohol abuse is admitted for detoxification. 48 hours after their last drink, they become intensely tremulous, tachycardic, hypertensive, diaphoretic, and begin experiencing terrifying visual and tactile hallucinations (seeing bugs crawling on the walls). What medical emergency is this?", "o": ["Wernicke-Korsakoff Syndrome", "Alcohol Withdrawal Delirium (Delirium Tremens - DTs)", "Hepatic Encephalopathy", "Opioid Withdrawal"], "a": 1, "t": "Psychiatry - Substance Abuse / Emergencies", "e": "Delirium Tremens (DTs) occurs 48–72 hours post-cessation, featuring autonomic hyperactivity and vivid hallucinations."},
+    {"q": "A patient with Wernicke-Korsakoff Syndrome secondary to chronic alcoholism and severe malnutrition is admitted. The nurse expects the provider to order which immediate vitamin supplementation?", "o": ["Vitamin B1 (Thiamine)", "Vitamin B12 (Cobalamin)", "Vitamin C (Ascorbic Acid)", "Vitamin D3 (Cholecalciferol)"], "a": 0, "t": "Psychiatry - Substance Abuse / Nutrition", "e": "Wernicke-Korsakoff syndrome is caused by Vitamin B1 (Thiamine) deficiency. Give IV Thiamine *before* glucose to prevent brain damage."},
+    {"q": "A patient with Borderline Personality Disorder (BPD) tells one nurse, 'You are the only nurse who actually understands me and cares; everyone else on this unit is cruel and useless.' Two hours later, that same patient screams at the nurse, 'You are the worst nurse ever! I hate you!' What defense mechanism is this patient displaying?", "o": ["Projection", "Rationalization", "Splitting (All-or-None thinking)", "Reaction Formation"], "a": 2, "t": "Psychiatry - Personality Disorders", "e": "Splitting views people or situations as entirely 'all good' or 'all bad'. Consistent staff communication prevents manipulation."},
+    {"q": "A patient experiencing a severe manic episode in Bipolar I Disorder is pacing the hallway, shouting, rapidly talking over everyone, and throwing food at other patients. What is the most effective initial nursing intervention?", "o": ["Engage the patient in a long, detailed discussion about their behavior.", "Provide a quiet, low-stimulation environment and redirect them to a simple, solitary, non-competitive physical activity.", "Allow the patient to continue to maintain their autonomy in the open dayroom.", "Place the patient in four-point physical restraints immediately."], "a": 1, "t": "Psychiatry - Mood Disorders", "e": "Reduce environmental stimuli and redirect excess energy into simple, non-stimulating physical tasks."},
+    {"q": "A patient with Major Depressive Disorder starts taking an MAOI (Tranylcypromine). The nurse provides strict dietary education. Which food item must the patient completely eliminate to prevent a fatal hypertensive crisis?", "o": ["Fresh apples and bananas", "Aged cheeses, cured meats, red wine, and soy sauce (Tyramine-rich foods)", "Pasteurized milk and yogurt", "Steamed white rice and plain chicken breast"], "a": 1, "t": "Psychiatry - Psychopharmacology", "e": "MAOIs prevent tyramine breakdown. Tyramine-rich foods trigger severe hypertensive crisis."},
+    {"q": "A patient with Catatonic Schizophrenia remains motionless in a rigid, statue-like posture for hours, and if the nurse moves their arm into an awkward position, the arm stays locked in that position indefinitely. What are these specific catatonic signs called?", "o": ["Echopraxia and Echolalia", "Waxy flexibility (Catalepsy) and Catatonic Posturing", "Avolition and Anhedonia", "Tardive Dyskinesia"], "a": 1, "t": "Psychiatry - Schizophrenia", "e": "Waxy flexibility is the maintenance of a posture passively placed by another person."},
+    {"q": "A patient with severe Post-Traumatic Stress Disorder (PTSD) experiences a sudden combat flashback and becomes aggressive. What is the priority nursing intervention?", "o": ["Challenge their cognitive distortion by proving they are safe in the hospital.", "Ensure a safe distance, speak in a calm, grounded voice, orient them to the present environment ('You are safe in the hospital, your name is...'), and avoid sudden touch.", "Administer an IV push narcotic.", "Leave the room immediately."], "a": 1, "t": "Psychiatry - Anxiety / Trauma", "e": "Ensure safety, keep a calm presence, reorient to the present, and avoid unexpected physical touch."},
+    {"q": "A patient with Somatic Symptom Disorder visits multiple physicians complaining of severe, disabling abdominal pain, fatigue, and neurological numbness, yet extensive medical workups continuously reveal zero organic pathology. How should the nurse best respond to the patient's complaints?", "o": ["Tell the patient, 'Your labs are normal, so your pain is just in your head.'", "Acknowledge that the physical pain and suffering are very real to the patient, while gradually shifting the focus away from physical complaints to coping mechanisms for stress.", "Refer the patient to a surgeon for exploratory laparoscopy.", "Ignore the complaints to discourage secondary gain."], "a": 1, "t": "Psychiatry - Somatoform Disorders", "e": "Validate that their suffering is real while helping them connect stress to physical symptoms."},
+    {"q": "A client is prescribed Clozapine for treatment-resistant schizophrenia. Which mandatory weekly or bi-weekly laboratory monitoring is legally required for this medication?", "o": ["Liver function tests (LFTs)", "Absolute Neutrophil Count (ANC) via complete blood count (CBC)", "Serum creatinine and BUN", "Thyroid stimulating hormone (TSH)"], "a": 1, "t": "Psychiatry - Psychopharmacology", "e": "Clozapine requires mandatory ANC monitoring due to agranulocytosis risk."},
+    {"q": "A patient with Generalized Anxiety Disorder (GAD) is prescribed Buspirone. The patient complains after 3 days that 'the pill is completely useless and doesn't stop my anxiety.' How should the nurse respond?", "o": ["'Stop taking it immediately and call your doctor for a benzodiazepine.'", "'Buspirone takes 2 to 4 weeks to achieve full therapeutic anxiolytic efficacy; it is not an immediate rescue medication.'", "'Double your dose starting today.'", "'You must be taking it incorrectly; swallow it with grapefruit juice.'"], "a": 1, "t": "Psychiatry - Psychopharmacology", "e": "Buspirone has a delayed onset of 2–4 weeks; it is not an acute rescue medication."},
+    {"q": "A psychiatric nurse is reviewing the rights of involuntarily committed patients. Which right is RETAINED by an involuntarily committed patient who has not been adjudicated legally incompetent?", "o": ["The absolute right to leave the hospital grounds whenever they want.", "The right to refuse psychotropic medications (barring an acute emergency where they pose immediate danger to self/others).", "The right to refuse all physical health examinations.", "The right to have unrestricted visitor access 24/7."], "a": 1, "t": "Psychiatry - Legal & Ethics", "e": "Involuntary commitment does not strip away civil rights or competence; they retain the right to refuse meds unless an acute emergency occurs."},
+
+    // --- SECTION 5: Nursing Research & Community Health Nursing (CHN) (Q81 - Q100) ---
+    {"q": "A nurse researcher conducts a study testing a new wound care protocol. The resulting statistical test yields a p-value of 0.03. Assuming the alpha level (significance level) was set at 0.05, how should the researcher interpret this result?", "o": ["The finding is not statistically significant; fail to reject the null hypothesis.", "The finding is statistically significant; reject the null hypothesis, indicating there is only a 3% probability that the results occurred purely by chance.", "There is a 97% chance that the research hypothesis is completely false.", "The sample size was too small to draw conclusions."], "a": 1, "t": "Nursing Research - Statistics", "e": "A p-value < 0.05 indicates statistical significance, leading to rejection of the null hypothesis."},
+    {"q": "In a qualitative research study examining the lived experiences of mothers of children with autism, the researcher continues interviewing participants until no new data, themes, or insights emerge. What is this methodological research term?", "o": ["Data Saturation", "Random Sampling", "Triangulation", "Generalizability"], "a": 0, "t": "Nursing Research - Qualitative Methods", "e": "Data saturation occurs when gathering more data yields no new themes or information."},
+    {"q": "A researcher wants to study the relationship between smoking pack-years and the incidence of lung cancer. The study starts with individuals who have lung cancer and a control group without lung cancer, looking backward in time to compare their historical smoking exposures. What type of research design is this?", "o": ["Cohort study", "Randomized Controlled Trial (RCT)", "Case-Control study", "Cross-sectional survey"], "a": 2, "t": "Nursing Research - Designs", "e": "Case-control studies start with the outcome and look backward in time to determine exposure history."},
+    {"q": "What is the primary distinguishing characteristic of a True Experimental Research Design (Randomized Controlled Trial - RCT)?", "o": ["Quasi-random assignment and retrospective data collection", "Manipulation of an independent variable, random assignment of subjects to groups, and presence of a control group", "Observational description of variables without intervention", "Purely qualitative interviews"], "a": 1, "t": "Nursing Research - Quantitative Designs", "e": "An RCT requires manipulation, control, and random assignment."},
+    {"q": "A nurse researcher evaluates a newly developed depression screening tool. Participants take the tool twice, 2 weeks apart, and the scores are highly consistent across both testing sessions. What psychometric property is this tool demonstrating?", "o": ["Validity", "Reliability (Test-Retest)", "Sensitivity", "Specificity"], "a": 1, "t": "Nursing Research - Measurement", "e": "Reliability reflects consistency and reproducibility over time."},
+    {"q": "In Community Health Nursing (CHN), what is the primary objective of 'Primary Prevention'?", "o": ["Screening individuals to detect disease early in its preclinical stage", "Preventing the initial occurrence of a disease or injury through health promotion and risk reduction (e.g., immunizations)", "Treating clinical disease to halt complications and restore functioning", "Providing palliative and hospice care for terminal illnesses"], "a": 1, "t": "CHN - Levels of Prevention", "e": "Primary prevention aims to prevent disease before it occurs (immunizations, health education)."},
+    {"q": "A community health nurse is investigating an outbreak of food poisoning at a local community picnic. Sixty people ate potato salad, and 45 of them developed severe gastroenteritis. Calculate the Attack Rate.", "o": ["25%", "60%", "75%", "100%"], "a": 2, "t": "CHN - Epidemiology", "e": "Attack Rate = (Ill / Exposed) x 100 = (45 / 60) x 100 = 75%."},
+    {"q": "When calculating epidemiological statistics for a community, 'Prevalence' differs from 'Incidence' in that Prevalence measures:", "o": ["The number of NEW cases of a disease in a population over a specific time period.", "The total number of ALL existing cases (both old and new) of a disease in a population at a given point in time.", "The mortality rate attributed to a specific infectious agent.", "The proportion of healthy people who contract an infection."], "a": 1, "t": "CHN - Epidemiology", "e": "Prevalence measures ALL existing cases (old + new) at a given point in time."},
+    {"q": "A community health nurse uses the 'Epidemiological Triangle' model to analyze disease transmission in an outbreak. What are the three interactive components of this triangle?", "o": ["Host, Agent, and Environment", "Agent, Vector, and Treatment", "Sanitation, Housing, and Income", "Pathogen, Immunity, and Mortality"], "a": 0, "t": "CHN - Epidemiology", "e": "The Epidemiological Triangle consists of Host, Agent, and Environment."},
+    {"q": "According to the National Health Policy (NHP) of India, what is the stated target for total government health expenditure as a percentage of the Gross Domestic Product (GDP)?", "o": ["1.0% of GDP", "1.5% of GDP", "2.5% of GDP", "5.0% of GDP"], "a": 2, "t": "CHN - National Health Programs", "e": "The NHP of India targets government health expenditure to reach 2.5% of GDP."},
+    {"q": "Which national health program in India is specifically mandated to provide comprehensive maternal and neonatal healthcare services, including financial assistance, home visits, and institutional delivery promotion (e.g., Janani Suraksha Yojana)?", "o": ["Revised National Tuberculosis Control Programme (RNTCP)", "National Health Mission (NHM) / RMNCH+A", "National Mental Health Programme", "Vector Borne Disease Control Programme"], "a": 1, "t": "CHN - National Health Programs", "e": "The National Health Mission (NHM) / RMNCH+A focuses on maternal and child health initiatives."},
+    {"q": "A community health nurse organizes a village meeting to discuss clean drinking water and sanitation. Which level of healthcare in the Indian healthcare delivery system does this community-level outreach represent?", "o": ["Primary Healthcare (specifically via Sub-centres and Primary Health Centres)", "Secondary Healthcare (Community Health Centres)", "Tertiary Healthcare (Medical College Hospitals)", "Quaternary Healthcare"], "a": 0, "t": "CHN - Healthcare Delivery System", "e": "Primary healthcare is the first level of contact, delivered via Sub-centres and PHCs."},
+    {"q": "In a research study, what is the purpose of establishing a 'Null Hypothesis' (H0)?", "o": ["To predict a direct, positive correlation between the independent and dependent variables.", "To state that there is NO significant relationship or difference between the variables being studied, acting as a baseline for statistical testing.", "To prove that the researcher's personal bias is correct.", "To determine the exact sample size needed."], "a": 1, "t": "Nursing Research - Hypotheses", "e": "The null hypothesis states there is no relationship/difference, acting as a baseline for statistical testing."},
+    {"q": "A researcher conducts a study where participants are randomly assigned to either receive a new educational intervention or standard care. What type of sampling method is random assignment?", "o": ["Non-probability convenience sampling", "Probability sampling / Random assignment (experimental control)", "Quota sampling", "Purposive sampling"], "a": 1, "t": "Nursing Research - Sampling & Design", "e": "Random assignment allocates participants to experimental or control groups to eliminate bias."},
+    {"q": "What is the primary function of an Institutional Review Board (IRB) or Ethics Committee in nursing research?", "o": ["To secure funding grants for the research study", "To review research protocols to ensure the ethical treatment, safety, and protection of human subjects' rights", "To edit and format the final manuscript for publication in academic journals", "To collect statistical data for the researcher"], "a": 1, "t": "Nursing Research - Ethics & IRB", "e": "IRBs protect the rights, welfare, and safety of human research subjects."},
+    {"q": "In descriptive statistics, which measure of central tendency is most severely distorted and skewed by extreme outliers in a dataset?", "o": ["The Median", "The Mode", "The Mean (Average)", "The Interquartile Range"], "a": 2, "t": "Nursing Research - Statistics", "e": "The mean is sensitive to and easily skewed by extreme outliers."},
+    {"q": "A community health nurse assesses a local population and identifies that 15% of children under the age of 5 suffer from chronic malnutrition manifested as low height-for-age. What epidemiological term defines this specific growth failure?", "o": ["Wasting", "Stunting", "Underweight", "Kwashiorkor"], "a": 1, "t": "CHN - Nutrition / Maternal Child Health", "e": "Stunting is low height-for-age, indicating chronic malnutrition."},
+    {"q": "What is the core operational unit of healthcare delivery at the village level in rural India under the National Health Mission, staffed by a female community health activist?", "o": ["Community Health Centre (CHC)", "Primary Health Centre (PHC)", "Sub-centre", "ASHA (Accredited Social Health Activist) working with the Village Health Sanitation and Nutrition Committee"], "a": 3, "t": "CHN - Community Organization", "e": "The ASHA is the frontline community health worker at the village level."},
+    {"q": "A nurse researcher wants to evaluate whether a new nursing simulation lab improves student clinical competence scores on a scale of 0 to 100. Which parametric statistical test should be used to compare the mean scores of two independent groups of students (traditional vs. simulation)?", "o": ["Chi-square test", "Pearson correlation coefficient", "Independent samples t-test", "Mann-Whitney U test"], "a": 2, "t": "Nursing Research - Inferential Statistics", "e": "Independent samples t-test compares the means of a continuous variable between two independent groups."},
+    {"q": "In a qualitative research study, the concept of 'Credibility' corresponds most closely to which quantitative research criterion of scientific rigor?", "o": ["Generalizability", "Internal Validity (ensuring the study truly measures what it set out to measure)", "Reliability", "Objectivity"], "a": 1, "t": "Nursing Research - Rigor & Validity", "e": "Credibility in qualitative research corresponds to Internal Validity in quantitative research."}
+];
+
+// Structure into 5 sections of 20 questions each
+let sections = [];
+for (let i = 0; i < 5; i++) {
+    sections.push(rawQuestions.slice(i * 20, (i + 1) * 20));
+}
+
+let currentSection = 0;
+let currentQ = 0;
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answeredCount = 0;
+let answersData = Array.from({length: 5}, () => new Array(20).fill(null));
+
+// Timers (in seconds)
+let sectionTimeLeft = 18 * 60; 
+let totalTimeLeft = 90 * 60; 
+let timerInterval;
+
+const quizBody = document.getElementById('quiz-body');
+const scoreEl = document.getElementById('score');
+const qCounterEl = document.getElementById('q-counter');
+const secDisplayEl = document.getElementById('section-display');
+const secTimerEl = document.getElementById('section-timer');
+const totTimerEl = document.getElementById('total-timer');
+const progressEl = document.getElementById('progress');
+
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+}
+
+function updateTimers() {
+    if (totalTimeLeft <= 0) {
+        clearInterval(timerInterval);
+        finishExam();
+        return;
+    }
+    
+    sectionTimeLeft--;
+    totalTimeLeft--;
+    
+    secTimerEl.innerText = "Section Time: " + formatTime(sectionTimeLeft);
+    totTimerEl.innerText = "Total Time: " + formatTime(totalTimeLeft);
+    
+    if (sectionTimeLeft <= 0) {
+        advanceSection();
+    }
+}
+
+function advanceSection() {
+    if (currentSection < 4) {
+        alert("Time's up for Section " + (currentSection + 1) + ". Auto-advancing to Section " + (currentSection + 2) + ".");
+        currentSection++;
+        currentQ = 0;
+        sectionTimeLeft = 18 * 60; 
+        renderQuestion();
+    } else {
+        clearInterval(timerInterval);
+        finishExam();
+    }
+}
+
+function renderQuestion() {
+    quizBody.innerHTML = '';
+    const q = sections[currentSection][currentQ];
+    const globalQNum = (currentSection * 20) + currentQ + 1;
+    
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question-container active';
+    
+    const isAnswered = answersData[currentSection][currentQ] !== null;
+    const selectedIdx = answersData[currentSection][currentQ];
+    
+    let optionsHtml = '';
+    q.o.forEach((opt, optIndex) => {
+        let btnClass = 'option-btn';
+        if (isAnswered) {
+            btnClass += ' disabled';
+            if (optIndex === q.a) btnClass += ' correct';
+            else if (optIndex === selectedIdx) btnClass += ' incorrect';
+        }
+        optionsHtml += '<button class="' + btnClass + '" onclick="checkAnswer(' + optIndex + ', this)">' + String.fromCharCode(65 + optIndex) + '. ' + opt + '</button>';
+    });
+
+    let navHtml = '';
+    if (currentQ > 0) {
+        navHtml += '<button class="nav-btn" onclick="navigate(-1)">Previous</button>';
+    } else {
+        navHtml += '<button class="nav-btn" disabled>Previous</button>';
+    }
+    
+    if (currentQ < 19) {
+        navHtml += '<button class="nav-btn" onclick="navigate(1)">Next</button>';
+    } else {
+        if (currentSection < 4) {
+            navHtml += '<button class="nav-btn" onclick="submitSection()">Submit Section ' + (currentSection + 1) + '</button>';
+        } else {
+            navHtml += '<button class="nav-btn" onclick="finishExam()">Final Submit</button>';
+        }
+    }
+
+    qDiv.innerHTML = '<div class="subject-tag">' + q.t + '</div>' +
+                     '<div class="q-text">Q' + globalQNum + ': ' + q.q + '</div>' +
+                     '<div class="options" id="opts-container">' + optionsHtml + '</div>' +
+                     '<div class="rationale" id="rationale-box" style="display: ' + (isAnswered ? 'block' : 'none') + ';">' +
+                     '<strong>Clinical Rationale:</strong> ' + q.e + '</div>' +
+                     '<div class="navigation">' + navHtml + '</div>';
+    quizBody.appendChild(qDiv);
+    
+    secDisplayEl.innerText = "Section: " + (currentSection + 1) + " / 5";
+    qCounterEl.innerText = "Q: " + (currentQ + 1) + " / 20";
+    
+    const globalProgress = (globalQNum / 100) * 100;
+    progressEl.style.width = globalProgress + '%';
+}
+
+window.checkAnswer = function(selectedOptIndex, btnElement) {
+    if (answersData[currentSection][currentQ] !== null) return; 
+    
+    const q = sections[currentSection][currentQ];
+    answersData[currentSection][currentQ] = selectedOptIndex;
+    
+    const container = document.getElementById('opts-container');
+    const buttons = container.querySelectorAll('.option-btn');
+    
+    buttons.forEach(b => b.classList.add('disabled'));
+    
+    answeredCount++;
+
+    if (selectedOptIndex === q.a) {
+        btnElement.classList.add('correct');
+        score += 1;
+        correctCount++;
+    } else {
+        btnElement.classList.add('incorrect');
+        buttons[q.a].classList.add('correct');
+        score -= 0.3333; 
+        wrongCount++;
+    }
+    
+    document.getElementById('rationale-box').style.display = 'block';
+    scoreEl.innerText = score.toFixed(2);
+}
+
+window.navigate = function(dir) {
+    currentQ += dir;
+    renderQuestion();
+}
+
+window.submitSection = function() {
+    let unans = 0;
+    for(let i=0; i<20; i++) {
+        if(answersData[currentSection][i] === null) unans++;
+    }
+    if(unans > 0) {
+        if(!confirm("You have " + unans + " unattempted questions in this section. Submit and move to next section? You CANNOT return.")) return;
+    } else {
+        if(!confirm("Are you sure you want to submit Section " + (currentSection + 1) + "? You CANNOT return.")) return;
+    }
+    
+    currentSection++;
+    currentQ = 0;
+    sectionTimeLeft = 18 * 60; 
+    renderQuestion();
+}
+
+window.finishExam = function() {
+    clearInterval(timerInterval);
+    quizBody.style.display = 'none';
+    document.querySelector('.dashboard').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'block';
+    
+    let finalScoreFormatted = score < 0 ? "0.00" : score.toFixed(2);
+    document.getElementById('final-score-display').innerText = finalScoreFormatted + " / 100";
+    
+    let unattemptedCount = 100 - answeredCount;
+    
+    document.getElementById('stat-att').innerText = answeredCount;
+    document.getElementById('stat-unatt').innerText = unattemptedCount;
+    document.getElementById('stat-corr').innerText = correctCount;
+    document.getElementById('stat-wrong').innerText = wrongCount;
+}
+
+window.onload = function() {
+    renderQuestion();
+    timerInterval = setInterval(updateTimers, 1000);
+};
+</script>
+
+</body>
+</html>
